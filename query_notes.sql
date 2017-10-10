@@ -19,9 +19,82 @@ WHERE conf_count > 200;
 SELECT title
 FROM author_pub_relation AP JOIN publication P ON AP.pid = P.id
 WHERE author.id = (
-  SELECT author_id -- select just one id, in case there are multiple authors with the same name
+  SELECT author_id 
   FROM authors
   WHERE author_name = 'X'
-  )
-LIMIT 1;
+  LIMIT 1;  -- select just one id, in case there are multiple authors with the same name
+) AND P.year = '2015'
+
   
+
+-- 3 (b)
+
+SELECT title
+FROM author_pub_relation AP JOIN publication P ON AP.pid = P.id
+WHERE author.id = (
+  SELECT author_id 
+  FROM authors
+  WHERE author_name = 'X'
+  LIMIT 1;  -- select just one id, in case there are multiple authors with the same name
+) AND P.year = 'Y' AND P.conf_name = 'Z'
+
+
+-- 3(c)
+
+SELECT author_name 
+FROM author_pub_relation AP JOIN author A ON AP.aid = A.id 
+WHERE AP.pid IN ( 
+                SELECT P.id 
+                FROM publications 
+                WHERE conf_name = 'Z' AND year = 'Y') ;
+                
+               
+-- 4 (a)
+-- Try out intersect or difference
+SELECT author_name, A.id 
+FROM author A JOIN 
+(
+  SELECT AP.aid as aid, P.conf_name, COUNT(*)
+  FROM author_pub_relation AP JOIN publication P ON AP.pid = P.id
+  WHERE conf_name IN ['PVLDB', 'SIGMOD']
+  GROUP BY author.id, P.conf_name
+  HAVING COUNT(*) >= 10
+) x
+ON A.id = aid
+GROUP BY x.aid, A.id
+WHERE COUNT(*) == 2
+
+
+-- 4 (b)
+SELECT A.author_name
+FROM AUTHOR A
+WHERE A.id IN
+(
+  (
+    SELECT author_id, COUNT(*)
+    FROM author_pub_relation AP JOIN PUBLICATIONS P ON AP.pubid = P.id
+    WHERE P.conf_name = 'PVLDB'
+    GROUP BY author_id
+    HAVING COUNT(*) >= 10 )
+  EXCEPT 
+  ( SELECT author_id, COUNT(*)
+    FROM author_pub_relation AP JOIN PUBLICATIONS P ON AP.pubid = P.id
+    WHERE P.conf_name = 'PVLDB'
+    GROUP BY author_id
+    HAVING COUNT(*) >= 10 )
+);
+
+
+-- 5
+
+
+
+
+
+
+
+
+
+
+
+
