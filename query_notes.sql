@@ -124,3 +124,30 @@ WHERE id IN
       ) y
      )
   );
+  
+  
+  
+  -- 7
+  
+  SELECT id, name, COUNT(*) 
+  FROM author A JOIN author_pub_relation AP ON A.id = AP.aid
+  GROUP BY A.id
+  WHERE AP.pubid IN
+  (
+    SELECT pubid    -- Get all publications published in conferences whose titles contain the word "data"
+    FROM publications
+    WHERE conf_name LIKE %Data%
+   )
+  ORDER BY 3 DESC -- Order by the third column (the count)   
+  LIMIT 10;
+   
+  
+  
+  -- 8 
+  
+  
+  SELECT conf_name
+  FROM publications
+  WHERE mdate LIKE %-07-% 
+  GROUP BY conf_name, mdate
+  HAVING COUNT(*) > 100
