@@ -88,6 +88,14 @@ WHERE A.id IN
 -- 5
 
 
+SELECT YEAR/10, COUNT(*)
+FROM publications
+GROUP BY YEAR/10
+WHERE (YEAR BETWEEN 1970 AND 2019) AND conf_ name = 'DBLP'
+
+
+-- 6 
+
 
 
 
