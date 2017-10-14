@@ -15,8 +15,8 @@ FROM (
     GROUP BY SPLIT_PART(key, '/', 2), year) temp
 WHERE temp.conf_count > 200;
 
--------------------3------------------------
-SELECT P.title
+-------------------3a------------------------
+SELECT P.title -- Need to show all Publication details
 FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
 WHERE AP.author_id IN (
   SELECT author_id
@@ -30,24 +30,26 @@ WHERE AP.author_id IN (
 
 -- 3 (b)
 
-SELECT title
-FROM author_pub_relation AP JOIN publication P ON AP.pid = P.id
-WHERE author.id = (
+SELECT * -- Need to show all publication details
+FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
+WHERE AP.author_id IN (
   SELECT author_id
-  FROM authors
-  WHERE author_name = 'X'
-  LIMIT 1;  -- select just one id, in case there are multiple authors with the same name
-) AND P.year = 'Y' AND P.conf_name = 'Z'
+  FROM Author
+  WHERE name ILIKE '%Langley%' --- X
+  LIMIT 1 -- select just one id, in case there are multiple authors with the same name
+) AND P.year = '1990' AND SPLIT_PART(P.key, '/', 2) = 'bmvc'
 
-
+--- Extract conf_name
 -- 3(c)
 
-SELECT author_name
-FROM author_pub_relation AP JOIN author A ON AP.aid = A.id
-WHERE AP.pid IN (
-                SELECT P.id
-                FROM publications
-                WHERE conf_name = 'Z' AND year = 'Y') ;
+SELECT A.name, COUNT(*)
+FROM PublicationAuthor AP JOIN author A ON AP.author_id = A.author_id
+WHERE AP.publication_id IN (
+                SELECT P.publication_id
+                FROM Publication P
+                WHERE SPLIT_PART(P.key, '/', 2) = 'bmvc' AND year = '1990')
+GROUP BY A.name
+HAVING COUNT(*) > 1;
 
 
 -- 4 (a)
@@ -56,7 +58,7 @@ SELECT author_name, A.id
 FROM author A JOIN
 (
   SELECT AP.aid as aid, P.conf_name, COUNT(*)
-  FROM author_pub_relation AP JOIN publication P ON AP.pid = P.id
+  FROM PublicationAuthor AP JOIN publication P ON AP.pid = P.id
   WHERE conf_name IN ['PVLDB', 'SIGMOD']
   GROUP BY author.id, P.conf_name
   HAVING COUNT(*) >= 10
@@ -73,13 +75,13 @@ WHERE A.id IN
 (
   (
     SELECT author_id, COUNT(*)
-    FROM author_pub_relation AP JOIN PUBLICATIONS P ON AP.pubid = P.id
+    FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.id
     WHERE P.conf_name = 'PVLDB'
     GROUP BY author_id
     HAVING COUNT(*) >= 10 )
   EXCEPT
   ( SELECT author_id, COUNT(*)
-    FROM author_pub_relation AP JOIN PUBLICATIONS P ON AP.pubid = P.id
+    FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.id
     WHERE P.conf_name = 'PVLDB'
     GROUP BY author_id
     HAVING COUNT(*) >= 10 )
@@ -90,7 +92,7 @@ WHERE A.id IN
 
 
 SELECT YEAR/10, COUNT(*)
-FROM publications
+FROM Publication
 WHERE (YEAR BETWEEN 1970 AND 2019) AND (conf_ name = 'DBLP')
 GROUP BY YEAR/10;
 
@@ -104,7 +106,7 @@ GROUP BY YEAR/10;
 -- The following gives us all the author-co author pairs
 CREATE VIEW coauthors AS
 SELECT X.aid AS authorID, Y.aid AS coauthorID
-FROM author_pub_relation X, Y
+FROM PublicationAuthor X, Y
 WHERE (X.aid != Y.aid) and (X.pubkey = Y.pubkey);
 
 
@@ -131,12 +133,12 @@ WHERE id IN
   -- 7
 
   SELECT id, name, COUNT(*)
-  FROM author A JOIN author_pub_relation AP ON A.id = AP.aid
+  FROM author A JOIN PublicationAuthor AP ON A.id = AP.aid
   GROUP BY A.id
   WHERE AP.pubid IN
   (
-    SELECT pubid    -- Get all publications published in conferences whose titles contain the word "data"
-    FROM publications
+    SELECT pubid    -- Get all Publication published in conferences whose titles contain the word "data"
+    FROM Publication
     WHERE conf_name LIKE %Data%
    )
   ORDER BY 3 DESC -- Order by the third column (the count)
@@ -148,7 +150,7 @@ WHERE id IN
 
 
   SELECT conf_name
-  FROM publications
+  FROM Publication
   WHERE mdate LIKE %-07-%
   GROUP BY conf_name, mdate
   HAVING COUNT(*) > 100
@@ -157,7 +159,7 @@ WHERE id IN
  -- 9 (a)
 
  SELECT A.name
- FROM Author A JOIN author_pub_relation AP ON A.id = AP.aid JOIN publications P ON AP.pubid = P.pubid
+ FROM Author A JOIN PublicationAuthor AP ON A.id = AP.aid JOIN Publication P ON AP.pubid = P.pubid
  WHERE P.Year BETWEEN '1987' AND '2017'
  GROUP BY AP.aid
  HAVING COUNT(DISTINCT Year) = 30;
@@ -165,12 +167,12 @@ WHERE id IN
  -- 9 (b)
 
  SELECT name, COUNT(*)
- FROM authors A JOIN author_pub_relation AP ON A.id = AP.aid
+ FROM authors A JOIN PublicationAuthor AP ON A.id = AP.aid
  WHERE (name LIKE 'H%') -- Assuming name is in the format 'Khare Simran'
    AND AP.aid IN (
-        -- Get the authors of publications with the earliest publication date
+        -- Get the authors of Publication with the earliest Publication date
         SELECT AP.aid
-        FROM author_pub_relation AP JOIN publications P ON AP.pubid = P.pubid
-        WHERE mdate = (SELECT MIN(mdate) FROM publications)
+        FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.pubid
+        WHERE mdate = (SELECT MIN(mdate) FROM Publication)
         )
  GROUP BY AP.aid
