@@ -151,3 +151,20 @@ WHERE id IN
   WHERE mdate LIKE %-07-% 
   GROUP BY conf_name, mdate
   HAVING COUNT(*) > 100
+  
+ 
+ 
+ 
+ -- 9 (b)
+ 
+ SELECT name, COUNT(*)
+ FROM authors A JOIN author_pub_relation AP ON A.id = AP.aid
+ WHERE (name LIKE 'H%') -- Assuming name is in the format 'Khare Simran'
+   AND AP.aid IN (
+        -- Get the authors of publications with the earliest publication date
+        SELECT AP.aid 
+        FROM author_pub_relation AP JOIN publications P ON AP.pubid = P.pubid
+        WHERE mdate = (SELECT MIN(mdate) FROM publications) 
+        ) 
+ GROUP BY AP.aid
+
