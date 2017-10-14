@@ -96,49 +96,71 @@ GROUP BY substring(year from 1 for 3);
 -- Tried this on some sample data, and it works without having to form intermediate tables for each ten year interval
 -- 6
 
-
 -- The following gives us all the author-co author pairs
 CREATE VIEW coauthors AS
-SELECT X.aid AS authorID, Y.aid AS coauthorID
-FROM PublicationAuthor X, Y
-WHERE (X.aid != Y.aid) and (X.pubkey = Y.pubkey);
+SELECT X.author_id AS authorID, Y.author_id AS coauthorID
+FROM PublicationAuthor X JOIN PublicationAuthor Y
+ON (X.author_id != Y.author_id) and (X.publication_id = Y.publication_id)
+GROUP BY X.author_id, Y.author_id;
 
+CREATE VIEW datacoauthors AS
+SELECT authorID, count(*) as count -- Get the IDs of authors with the maximum number of co authors
+FROM coauthors
+WHERE authorID IN (
+    SELECT AP.author_id
+    FROM PublicationAuthor AP JOIN Publication P
+    ON P.publication_id = AP.publication_id
+    WHERE (P.key LIKE 'journals%' OR P.key LIKE 'conf%')
+    AND LOWER(P.title) LIKE '%data%'
+)
+GROUP BY authorID;
 
-SELECT id, name  -- Get the names and IDs of authors with the maximum number of co authors
-FROM authors
-WHERE id IN
-(
-  SELECT authorID -- Get the IDs of authors with the maximum number of co authors
-  FROM coauthors
-  GROUP BY authorID
-  HAVING COUNT(*) =
-    (
-      SELECT MAX(y.num_coauthors) -- Get the maximum number of coauthors
-      (
-        SELECT COUNT(*) AS num_coauthors
-        FROM coauthors
-        GROUP BY authorID
-      ) y
-     )
-  );
-
+SELECT authorID
+FROM datacoauthors
+WHERE count = (SELECT MAX(count) FROM datacoauthors);
+----------------optimized query--------------------------
+SELECT q1.name AS author, q2.collaborators_count
+FROM (SELECT * FROM Author) as q1, (
+	SELECT PA1.author_id AS author_id,COUNT(DISTINCT PA2.author_id) AS collaborators_count
+	FROM PublicationAuthor PA1, PublicationAuthor PA2
+	WHERE PA1.author_id!=PA2.author_id AND PA1.publication_id=PA2.publication_id
+	GROUP BY PA1.author_id) as q2
+WHERE q1.author_id=q2.author_id
+AND q1.author_id IN (
+    SELECT AP.author_id
+    FROM PublicationAuthor AP JOIN Publication P
+    ON P.publication_id = AP.publication_id
+    WHERE (P.key LIKE 'journals%' OR P.key LIKE 'conf%')
+    AND LOWER(P.title) LIKE '%data%'
+)
+ORDER BY collaborators_count DESC LIMIT 10;
 
 
   -- 7
 
-  SELECT id, name, COUNT(*)
-  FROM author A JOIN PublicationAuthor AP ON A.id = AP.aid
-  GROUP BY A.id
-  WHERE AP.pubid IN
-  (
-    SELECT pubid    -- Get all Publication published in conferences whose titles contain the word "data"
+SELECT A.author_id, A.name, COUNT(*)
+FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
+WHERE AP.publication_id IN
+(
+    SELECT publication_id    -- Get all Publication published in conferences whose titles contain the word "data"
     FROM Publication
-    WHERE conf_name LIKE %Data%
-   )
-  ORDER BY 3 DESC -- Order by the third column (the count)
-  LIMIT 10;
+    WHERE (key LIKE 'journals%' OR key LIKE 'conf%')
+    AND LOWER(title) LIKE '%data%'
+    AND year BETWEEN '2013' and '2017'
+)
+GROUP BY A.author_id, A.name
+ORDER BY 3 DESC -- Order by the third column (the count)
+LIMIT 10;
 
-
+-------------optimized-------------------------
+SELECT A.name, COUNT(*) AS publication_count
+FROM Author A, Publication P, PublicationAuthor PA
+WHERE P.publication_id=PA.publication_id AND A.author_id=PA.author_id
+AND (P.key LIKE 'journals/%' OR P.key LIKE 'conf/%')
+AND P.year BETWEEN '2013' AND '2017'
+AND LOWER(P.title) LIKE '%data%'
+GROUP BY A.author_id
+ORDER BY count(*) DESC LIMIT 10;
 
   -- 8
 
