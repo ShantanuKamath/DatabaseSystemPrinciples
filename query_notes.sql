@@ -42,64 +42,58 @@ WHERE AP.author_id IN (
 --- Extract conf_name
 -- 3(c)
 
-SELECT A.name, COUNT(*)
+SELECT A.name
 FROM PublicationAuthor AP JOIN author A ON AP.author_id = A.author_id
 WHERE AP.publication_id IN (
                 SELECT P.publication_id
                 FROM Publication P
-                WHERE SPLIT_PART(P.key, '/', 2) = 'bmvc' AND year = '1990')
+                WHERE SPLIT_PART(P.key, '/', 2) = 'bmvc' AND year = '1990') -- Y AND Z
 GROUP BY A.name
 HAVING COUNT(*) > 1;
 
 
 -- 4 (a)
 -- Try out intersect or difference
-SELECT author_name, A.id
-FROM author A JOIN
+SELECT name, A.author_id
+FROM Author A JOIN
 (
-  SELECT AP.aid as aid, P.conf_name, COUNT(*)
-  FROM PublicationAuthor AP JOIN publication P ON AP.pid = P.id
-  WHERE conf_name IN ['PVLDB', 'SIGMOD']
-  GROUP BY author.id, P.conf_name
+  SELECT AP.author_id, SPLIT_PART(P.key, '/', 2) conf_name, COUNT(*)
+  FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
+  WHERE SPLIT_PART(P.key, '/', 2) IN (LOWER('pvldb'), LOWER('SIGMOD'))
+  GROUP BY AP.author_id, SPLIT_PART(P.key, '/', 2)
   HAVING COUNT(*) >= 10
 ) x
-ON A.id = aid
-GROUP BY x.aid, A.id
-WHERE COUNT(*) == 2
-
+ON A.author_id = x.author_id
+GROUP BY name, A.author_id
+HAVING COUNT(*) = 2
 
 -- 4 (b)
-SELECT A.author_name
+SELECT A.name
 FROM AUTHOR A
-WHERE A.id IN
+WHERE A.author_id IN
 (
   (
-    SELECT author_id, COUNT(*)
-    FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.id
-    WHERE P.conf_name = 'PVLDB'
-    GROUP BY author_id
-    HAVING COUNT(*) >= 10 )
+    SELECT AP.author_id
+    FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
+    WHERE SPLIT_PART(P.key, '/', 2) = LOWER('PVLDB')
+    GROUP BY AP.author_id
+    HAVING COUNT(*) >= 15 )
   EXCEPT
-  ( SELECT author_id, COUNT(*)
-    FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.id
-    WHERE P.conf_name = 'PVLDB'
-    GROUP BY author_id
-    HAVING COUNT(*) >= 10 )
+  ( SELECT AP.author_id
+    FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
+    WHERE SPLIT_PART(P.key, '/', 2) = LOWER('KDD')
+    GROUP BY AP.author_id)
 );
-
 
 -- 5
 
 
-SELECT YEAR/10, COUNT(*)
+SELECT 	substring(year from 1 for 3) as y3, COUNT(*)
 FROM Publication
-WHERE (YEAR BETWEEN 1970 AND 2019) AND (conf_ name = 'DBLP')
-GROUP BY YEAR/10;
+WHERE year BETWEEN '1970' AND '2019'
+GROUP BY substring(year from 1 for 3);
 
 -- Tried this on some sample data, and it works without having to form intermediate tables for each ten year interval
-
-
-
 -- 6
 
 
