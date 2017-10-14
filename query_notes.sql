@@ -9,7 +9,7 @@ SELECT conf_name
 FROM (
   SELECT conference_name, year, COUNT(*) as conf_count
   FROM publications
-  WHERE mdate LIKE %%-7-%%%% 
+  WHERE mdate LIKE '%-07-%' -- Assuming mdate is in the format '2017-07-14'
   GROUP BY year )
 WHERE conf_count > 200;
 
@@ -90,19 +90,37 @@ WHERE A.id IN
 
 SELECT YEAR/10, COUNT(*)
 FROM publications
-GROUP BY YEAR/10
-WHERE (YEAR BETWEEN 1970 AND 2019) AND conf_ name = 'DBLP'
+WHERE (YEAR BETWEEN 1970 AND 2019) AND (conf_ name = 'DBLP')
+GROUP BY YEAR/10;
+
+-- Tried this on some sample data, and it works without having to form intermediate tables for each ten year interval
+
 
 
 -- 6 
 
 
+-- The following gives us all the author-co author pairs
+CREATE VIEW coauthors AS
+SELECT X.aid AS authorID, Y.aid AS coauthorID
+FROM author_pub_relation X, Y
+WHERE (X.aid != Y.aid) and (X.pubkey = Y.pubkey);
 
 
-
-
-
-
-
-
-
+SELECT id, name  -- Get the names and IDs of authors with the maximum number of co authors
+FROM authors
+WHERE id IN
+(
+  SELECT authorID -- Get the IDs of authors with the maximum number of co authors
+  FROM coauthors
+  GROUP BY authorID
+  HAVING COUNT(*) =     
+    (
+      SELECT MAX(y.num_coauthors) -- Get the maximum number of coauthors
+      (
+        SELECT COUNT(*) AS num_coauthors
+        FROM coauthors
+        GROUP BY authorID    
+      ) y
+     )
+  );
