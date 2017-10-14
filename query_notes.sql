@@ -153,7 +153,13 @@ WHERE id IN
   HAVING COUNT(*) > 100
   
  
+ -- 9 (a)
  
+ SELECT A.name
+ FROM Author A JOIN author_pub_relation AP ON A.id = AP.aid JOIN publications P ON AP.pubid = P.pubid
+ WHERE P.Year BETWEEN '1987' AND '2017' 
+ GROUP BY AP.aid
+ HAVING COUNT(DISTINCT Year) = 30;
  
  -- 9 (b)
  
