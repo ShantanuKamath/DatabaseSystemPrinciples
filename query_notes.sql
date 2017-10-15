@@ -162,33 +162,47 @@ AND LOWER(P.title) LIKE '%data%'
 GROUP BY A.author_id
 ORDER BY count(*) DESC LIMIT 10;
 
-  -- 8
+-- 8
+--------------test_version------------------------
+
+-- SELECT SPLIT_PART(key, '/', 2) AS conf_name, year, COUNT(*) AS count
+SELECT DISTINCT(SPLIT_PART(key, '/', 2)) AS conf_name
+FROM Publication
+WHERE mdate LIKE '%-07-%'
+AND category = 'inproceedings'
+AND key LIKE 'conf%'
+GROUP BY SPLIT_PART(key, '/', 2), year
+HAVING COUNT(*) > 100
 
 
-  SELECT conf_name
-  FROM Publication
-  WHERE mdate LIKE %-07-%
-  GROUP BY conf_name, mdate
-  HAVING COUNT(*) > 100
+-- 9 (a)
+
+SELECT A.name, AP.author_id
+FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id JOIN Publication P ON AP.publication_id = P.publication_id
+WHERE P.year BETWEEN '1988' AND '2017'
+AND SUBSTRING(A.name , LENGTH(A.name) -  STRPOS(REVERSE(A.name),' ') + 2  , LENGTH(A.name)) LIKE 'H%'
+GROUP BY AP.author_id, A.name
+HAVING COUNT(DISTINCT P.year) = 30;
+
+-- 9 (b)
+
+SELECT A.author_id, A.name, COUNT(*)
+FROM Author A JOIN PublicationAuthor AP
+ON A.author_id = AP.author_id
+WHERE A.author_id IN (
+    -- Get the authors of Publication with the earliest Publication date
+    SELECT DISTINCT AP.author_id
+    FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
+    WHERE P.year = (SELECT MIN(year) FROM Publication)
+    )
+GROUP BY A.author_id , A.name;
 
 
- -- 9 (a)
-
- SELECT A.name
- FROM Author A JOIN PublicationAuthor AP ON A.id = AP.aid JOIN Publication P ON AP.pubid = P.pubid
- WHERE P.Year BETWEEN '1987' AND '2017'
- GROUP BY AP.aid
- HAVING COUNT(DISTINCT Year) = 30;
-
- -- 9 (b)
-
- SELECT name, COUNT(*)
- FROM authors A JOIN PublicationAuthor AP ON A.id = AP.aid
- WHERE (name LIKE 'H%') -- Assuming name is in the format 'Khare Simran'
-   AND AP.aid IN (
-        -- Get the authors of Publication with the earliest Publication date
-        SELECT AP.aid
-        FROM PublicationAuthor AP JOIN Publication P ON AP.pubid = P.pubid
-        WHERE mdate = (SELECT MIN(mdate) FROM Publication)
-        )
- GROUP BY AP.aid
+----- 10------ Return the top 5 most common first name of authors who have pubished papers in the last 10 years
+SELECT SPLIT_PART(A.name, ' ', 2) as firstname, COUNT(*)
+FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
+JOIN Publication P ON AP.publication_id = P.publication_id
+WHERE P.year BETWEEN '2008' AND '2017'
+GROUP BY SPLIT_PART(A.name, ' ', 2)
+ORDER BY COUNT(*) DESC
+LIMIT 5;
