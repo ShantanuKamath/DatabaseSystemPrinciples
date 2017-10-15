@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------
 \timing on
 -- path to the csv file
-\set csv_filepath /Users/shantanukamath/GitHub Repos/DatabaseSystemPrinciples
+\set csv_filepath /Users/shantanukamath/csv/
 ------------------------------------------------------------------------------
 
 
@@ -24,14 +24,14 @@ CREATE TABLE Publication (
 	publication_id SERIAL PRIMARY KEY,
 	category TEXT NOT NULL,
 	key TEXT NOT NULL,
-	mdate DATE NOT NULL,
+	mdate TEXT NOT NULL,
 	publtype TEXT,
 	reviewid TEXT,
 	rating TEXT,
 	title TEXT,
 	booktitle TEXT,
 	pages TEXT,
-	year INT,
+	year TEXT,
 	address TEXT,
 	journal TEXT,
 	volume TEXT,

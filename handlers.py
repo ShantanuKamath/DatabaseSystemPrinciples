@@ -26,7 +26,7 @@ class DBLPHandler(ContentHandler):
     def __init__(self):
         for rf in self.relationFields:
             self.file_dict[rf] = open('csv/'+rf+'.csv', 'a')
-        self.file_dict['publication'] = open('csv/publication2.csv', 'a')
+        self.file_dict['publication'] = open('csv/publication.csv', 'a')
 
     def startElement(self, name, attrs):
         if self.isPublicationStartTag(name):
@@ -73,7 +73,7 @@ class DBLPHandler(ContentHandler):
         for fieldName in self.fieldNames:
             if fieldName in self.fieldValues:
                 value = (self.fieldValues[fieldName]).replace(',', '')
-                pub_file.write(value)
+                pub_file.write(value.encode('utf-8'))
             if count < len(self.fieldNames) - 1:
                 pub_file.write(',')
             count += 1

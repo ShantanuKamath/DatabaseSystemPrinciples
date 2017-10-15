@@ -12,13 +12,11 @@
 --          (publication-type, count) pairs.
 --          For example (article, 20000), (inproceedings, 30000).....
 --------------------------------------------------------------------------------
-SELECT SUM(count)
-FROM(
-	SELECT category, COUNT(*) count
-	FROM Publication
-	WHERE year BETWEEN '2000' AND '2017'
-	GROUP BY category
-) temp;
+\echo Query 1
+SELECT category, COUNT(*) count
+FROM Publication
+WHERE year BETWEEN '2000' AND '2017'
+GROUP BY category;
 
 --------------------------------------------------------------------------------
 -- Query 2: Find all the conferences that have ever published more than 200 
@@ -26,6 +24,7 @@ FROM(
 --          may be held every year (e.g., KDD runs many years, and each year the
 --          conference has a number of papers).
 --------------------------------------------------------------------------------
+\echo Query 2
 SELECT DISTINCT conf_name
 FROM (
 	SELECT SPLIT_PART(key, '/', 2) AS conf_name, year, COUNT(*) as conf_count
@@ -40,12 +39,13 @@ WHERE temp.conf_count > 200;
 --            in your database) at year 2015 (List all the available information
 --            of each publication). 
 --------------------------------------------------------------------------------
-SELECT P.title -- Need to show all Publication details
+\echo Query 3a
+SELECT P.* -- Need to show all Publication details
 FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
 WHERE AP.author_id IN (
 	SELECT author_id
 	FROM Author
-	WHERE name ILIKE '%Sheila Brady%' --- X
+	WHERE name ILIKE '%Ursula Goltz%' --- X
 	LIMIT 1 -- select just one id, in case there are multiple authors with the same name
 ) AND P.year = '2015';
 
@@ -57,12 +57,13 @@ WHERE AP.author_id IN (
 --           with real value so that the query will return some tuples as 
 --           results.)
 --------------------------------------------------------------------------------
+\echo Query 3b
 SELECT P.* -- Need to show all publication details
 FROM PublicationAuthor AP JOIN Publication P ON AP.publication_id = P.publication_id
 WHERE AP.author_id IN (
 	SELECT author_id
 	FROM Author
-	WHERE name ILIKE '%Langley%' --- X
+	WHERE name ILIKE '%Peter Mowforth%' --- X
 	LIMIT 1 -- select just one id, in case there are multiple authors with the same name
 ) AND P.year = '1990' AND SPLIT_PART(P.key, '/', 2) = 'bmvc';
 --- Extract conf_name
@@ -71,6 +72,7 @@ WHERE AP.author_id IN (
 -- Query 3c: Find authors who published at least 2 papers at conference “Z” at 
 --           year “Y”
 --------------------------------------------------------------------------------
+\echo Query 3c
 SELECT A.name
 FROM PublicationAuthor AP JOIN author A ON AP.author_id = A.author_id
 WHERE AP.publication_id IN (
@@ -86,6 +88,7 @@ HAVING COUNT(*) > 1;
 --           published at least 10 SIGMOD papers.
 --------------------------------------------------------------------------------
 -- Try out intersect or difference like in next section.
+\echo Query 4a
 SELECT name, A.author_id
 FROM Author A JOIN
 (
@@ -97,13 +100,14 @@ FROM Author A JOIN
 ) x
 ON A.author_id = x.author_id
 GROUP BY name, A.author_id
-HAVING COUNT(*) = 2
+HAVING COUNT(*) = 2;
 
 --------------------------------------------------------------------------------
 -- Query 4b: Find all authors who published at least 15 PVLDB papers but never 
 --           published a KDD paper.(Note that you need to do some digging to 
 --           find out how DBLP spells the name of conferences and journals).
 --------------------------------------------------------------------------------
+\echo Query 4b
 SELECT A.name
 FROM AUTHOR A
 WHERE A.author_id IN(
@@ -128,6 +132,7 @@ WHERE A.author_id IN(
 --			all distinct years.
 --------------------------------------------------------------------------------
 
+\echo Query 5
 SELECT substring(year from 1 for 3) as y3, COUNT(*)
 FROM Publication
 WHERE year BETWEEN '1970' AND '2019'
@@ -145,30 +150,31 @@ GROUP BY substring(year from 1 for 3);
 --			a temporary table of coauthors.
 --------------------------------------------------------------------------------
 -- The following gives us all the author-co author pairs
-CREATE VIEW coauthors AS
-SELECT X.author_id AS authorID, Y.author_id AS coauthorID
-FROM PublicationAuthor X JOIN PublicationAuthor Y
-ON (X.author_id != Y.author_id) and (X.publication_id = Y.publication_id)
-GROUP BY X.author_id, Y.author_id;
+-- CREATE VIEW coauthors AS
+-- SELECT X.author_id AS authorID, Y.author_id AS coauthorID
+-- FROM PublicationAuthor X JOIN PublicationAuthor Y
+-- ON (X.author_id != Y.author_id) and (X.publication_id = Y.publication_id)
+-- GROUP BY X.author_id, Y.author_id;
 
-CREATE VIEW datacoauthors AS
-SELECT authorID, count(*) as count -- Get the IDs of authors with the maximum number of co authors
-FROM coauthors
-WHERE authorID IN (
-	SELECT AP.author_id
-	FROM PublicationAuthor AP JOIN Publication P
-	ON P.publication_id = AP.publication_id
-	WHERE (P.key LIKE 'journals%' OR P.key LIKE 'conf%')
-	AND LOWER(P.title) LIKE '%data%'
-)
-GROUP BY authorID;
+-- CREATE VIEW datacoauthors AS
+-- SELECT authorID, count(*) as count -- Get the IDs of authors with the maximum number of co authors
+-- FROM coauthors
+-- WHERE authorID IN (
+-- 	SELECT AP.author_id
+-- 	FROM PublicationAuthor AP JOIN Publication P
+-- 	ON P.publication_id = AP.publication_id
+-- 	WHERE (P.key LIKE 'journals%' OR P.key LIKE 'conf%')
+-- 	AND LOWER(P.title) LIKE '%data%'
+-- )
+-- GROUP BY authorID;
 
-SELECT authorID
-FROM datacoauthors
-WHERE count = (SELECT MAX(count) FROM datacoauthors);
+-- SELECT authorID
+-- FROM datacoauthors
+-- WHERE count = (SELECT MAX(count) FROM datacoauthors);
 
 ----------------optimized query--------------------------
 
+\echo Query 6
 SELECT q1.name AS author, q2.collaborators_count
 FROM (SELECT * FROM Author) as q1, (
 	SELECT PA1.author_id AS author_id,COUNT(DISTINCT PA2.author_id) AS collaborators_count
@@ -192,22 +198,24 @@ ORDER BY collaborators_count DESC LIMIT 10;
 -- 			published in conferences and journals whose titles contain word 
 -- 			“Data” in the last 5 years.
 --------------------------------------------------------------------------------
-SELECT A.author_id, A.name, COUNT(*)
-FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
-WHERE AP.publication_id IN
-(
-	SELECT publication_id    
-	-- Get all Publication published in conferences whose titles contain the word "data"
-	FROM Publication
-	WHERE (key LIKE 'journals%' OR key LIKE 'conf%')
-	AND LOWER(title) LIKE '%data%'
-	AND year BETWEEN '2013' and '2017'
-)
-GROUP BY A.author_id, A.name
-ORDER BY 3 DESC -- Order by the third column (the count)
-LIMIT 10;
+-- SELECT A.author_id, A.name, COUNT(*)
+-- FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
+-- WHERE AP.publication_id IN
+-- (
+-- 	SELECT publication_id    
+-- 	-- Get all Publication published in conferences whose titles contain the word "data"
+-- 	FROM Publication
+-- 	WHERE (key LIKE 'journals%' OR key LIKE 'conf%')
+-- 	AND LOWER(title) LIKE '%data%'
+-- 	AND year BETWEEN '2013' and '2017'
+-- )
+-- GROUP BY A.author_id, A.name
+-- ORDER BY 3 DESC -- Order by the third column (the count)
+-- LIMIT 10;
 
 -------------optimized-------------------------
+\echo Query 7
+
 SELECT A.name, COUNT(*) AS publication_count
 FROM Author A, Publication P, PublicationAuthor PA
 WHERE P.publication_id=PA.publication_id AND A.author_id=PA.author_id
@@ -224,19 +232,21 @@ ORDER BY count(*) DESC LIMIT 10;
 --------------------------------------------------------------------------------
 --------------test_version------------------------
 -- SELECT SPLIT_PART(key, '/', 2) AS conf_name, year, COUNT(*) AS count
+\echo Query 8
 SELECT DISTINCT(SPLIT_PART(key, '/', 2)) AS conf_name
 FROM Publication
 WHERE mdate LIKE '%-07-%'
 AND category = 'inproceedings'
 AND key LIKE 'conf%'
 GROUP BY SPLIT_PART(key, '/', 2), year
-HAVING COUNT(*) > 100
+HAVING COUNT(*) > 100;
 
 
 --------------------------------------------------------------------------------
 -- Query 9a: Find authors who have published at least 1 paper every year in the
 --			 last 30 years, and whose family name start with ‘H’.
 --------------------------------------------------------------------------------
+\echo Query 9a
 SELECT A.name, AP.author_id
 FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id 
 JOIN Publication P ON AP.publication_id = P.publication_id
@@ -249,6 +259,7 @@ HAVING COUNT(DISTINCT P.year) = 30;
 -- Query 9b: Find the names and number of publications for authors who have the
 -- 			 earliest publication record in DBLP.
 --------------------------------------------------------------------------------
+\echo Query 9b
 SELECT A.author_id, A.name, COUNT(*)
 FROM Author A JOIN PublicationAuthor AP
 ON A.author_id = AP.author_id
@@ -265,6 +276,7 @@ GROUP BY A.author_id , A.name;
 --			 Return the top 5 most common first name of authors who have 
 -- 			 pubished papers in the last 10 years.
 --------------------------------------------------------------------------------
+\echo Query 10
 SELECT SPLIT_PART(A.name, ' ', 2) as firstname, COUNT(*)
 FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
 JOIN Publication P ON AP.publication_id = P.publication_id
