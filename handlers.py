@@ -20,7 +20,7 @@ class DBLPHandler(ContentHandler):
     def __init__(self):
         for rf in self.relationFields:
             self.file_dict[rf] = open(rf+'.csv', 'a')
-        self.file_dict['publication'] = open('publication2.csv', 'a')
+        self.file_dict['publication'] = open('publication.csv', 'a')
 
 
     def startElement(self, name, attrs):
@@ -28,7 +28,7 @@ class DBLPHandler(ContentHandler):
             self.isPublication = True
             self.fieldValues[self.PUBLICATION_TYPE_FIELD_NAME] = name
             for key in attrs.keys():
-                self.fieldValues[key] = attrs[key].replace('\n','')
+                self.fieldValues[key] = ((attrs[key]).strip()).replace('\n','')
         self.currentField = name
 
     def endElement(self, name):
@@ -44,7 +44,7 @@ class DBLPHandler(ContentHandler):
         else:
             pubKey = self.fieldValues['key']
             if name in self.relationFields:
-                self.file_dict[name].write('{}, {}\n'.format(pubKey.encode('utf-8'), self.fieldValues[name].encode('utf-8')))
+                self.file_dict[name].write('{}, {}\n'.format(pubKey.encode('utf-8'), ((self.fieldValues[name]).strip()).encode('utf-8')))
                 self.fieldValues[name] = ""
 
     def characters(self, characters):
