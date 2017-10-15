@@ -1,2 +1,9 @@
 dblp 2.dtd
 dblp.xml
+csv
+data
+*.csv
+.DS_Store
+__pycache__
+*.pyc
+test.sql
