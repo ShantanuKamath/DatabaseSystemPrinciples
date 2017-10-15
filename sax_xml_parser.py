@@ -2,7 +2,7 @@ from xml.sax import make_parser
 from handlers import DBLPHandler
 import io
 
-path_to_xml = "dblp.xml"
+path_to_xml = "data/dblp.xml"
 
 dblpHandler = DBLPHandler()
 saxparser = make_parser()

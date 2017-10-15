@@ -1,3 +1,4 @@
+from tqdm import tqdm
 from xml.sax.handler import ContentHandler
 
 
@@ -20,11 +21,12 @@ class DBLPHandler(ContentHandler):
                 INPROCEEDINGS_TAG_NAME, INCOLLECTION_TAG_NAME]
     file_dict = {}
     pub_count = 0
+    pbar = tqdm(total=3820548)
 
     def __init__(self):
         for rf in self.relationFields:
-            self.file_dict[rf] = open(rf+'.csv', 'a')
-        self.file_dict['publication'] = open('publication2.csv', 'a')
+            self.file_dict[rf] = open('csv/'+rf+'.csv', 'a')
+        self.file_dict['publication'] = open('csv/publication2.csv', 'a')
 
     def startElement(self, name, attrs):
         if self.isPublicationStartTag(name):
@@ -36,10 +38,7 @@ class DBLPHandler(ContentHandler):
 
     def endElement(self, name):
         if self.isPublicationClosingTag(name):
-            self.pub_count += 1
-            if self.pub_count % 10 == 0:
-                print("pub_count")
-                print(self.pub_count)
+            self.pbar.update(1)
             self.isPublication = False
             self.flushValues()
         elif not self.isPublication:
@@ -74,7 +73,7 @@ class DBLPHandler(ContentHandler):
         for fieldName in self.fieldNames:
             if fieldName in self.fieldValues:
                 value = (self.fieldValues[fieldName]).replace(',', '')
-                pub_file.write(value.encode('utf-8'))
+                pub_file.write(value)
             if count < len(self.fieldNames) - 1:
                 pub_file.write(',')
             count += 1
@@ -84,3 +83,4 @@ class DBLPHandler(ContentHandler):
     def closeFiles(self):
         for f in self.file_dict:
             self.file_dict[f].close()
+        self.pbar.close()
