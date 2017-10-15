@@ -274,13 +274,13 @@ GROUP BY A.author_id , A.name;
 --------------------------------------------------------------------------------
 -- Query 10: Design a join query that is not in the above list.
 --			 Return the top 5 most common first name of authors who have
--- 			 pubished papers in the last 10 years.
+-- 			 pubished papers in the last 2 year.
 --------------------------------------------------------------------------------
 \echo Query 10
 SELECT SPLIT_PART(A.name, ' ', 1) as firstname, COUNT(*)
 FROM Author A JOIN PublicationAuthor AP ON A.author_id = AP.author_id
 JOIN Publication P ON AP.publication_id = P.publication_id
-WHERE P.year BETWEEN '2008' AND '2017'
+WHERE P.year BETWEEN '2016' AND '2017'
 GROUP BY SPLIT_PART(A.name, ' ', 1)
 ORDER BY COUNT(*) DESC
 LIMIT 5;

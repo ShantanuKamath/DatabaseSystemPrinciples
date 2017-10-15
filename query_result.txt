@@ -329,13 +329,13 @@ Query 9b
 
 Time: 8160.867 ms
 Query 10
- firstname | count
+firstname | count
 -----------+-------
- David     | 56876
- Michael   | 55810
- Daniel    | 36486
- Thomas    | 34894
- Peter     | 32626
+David     | 10385
+Michael   | 10181
+Daniel    |  7691
+Thomas    |  6440
+Wei       |  5668
 (5 rows)
 
 Time: 103249.539 ms

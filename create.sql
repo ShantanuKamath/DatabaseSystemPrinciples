@@ -121,14 +121,14 @@ DELETE FROM Author;
 INSERT INTO Author(name)
 SELECT DISTINCT author_name FROM AuthorCSV;
 
--- -- Populate PublicationAuthor table.
--- DELETE FROM PublicationAuthor;
--- INSERT INTO PublicationAuthor
--- SELECT DISTINCT pub.publication_id, a.author_id
--- FROM Author a
--- JOIN AuthorCSV acsv ON a.name = acsv.author_name
--- JOIN Publication pub ON pub.key = acsv.publication_key;
--- DROP TABLE AuthorCSV;
+-- Populate PublicationAuthor table.
+DELETE FROM PublicationAuthor;
+INSERT INTO PublicationAuthor
+SELECT DISTINCT pub.publication_id, a.author_id
+FROM Author a
+JOIN AuthorCSV acsv ON a.name = acsv.author_name
+JOIN Publication pub ON pub.key = acsv.publication_key;
+DROP TABLE AuthorCSV;
 
 ------------------------------------------------------------------------------
 \echo Done......
