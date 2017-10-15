@@ -28,7 +28,7 @@ class DBLPHandler(ContentHandler):
             self.isPublication = True
             self.fieldValues[self.PUBLICATION_TYPE_FIELD_NAME] = name
             for key in attrs.keys():
-                self.fieldValues[key] = ((attrs[key]).strip()).replace('\n','')
+                self.fieldValues[key] = ((attrs[key]).strip()).replace('\n','').replace('"','')
         self.currentField = name
 
     def endElement(self, name):
@@ -44,7 +44,7 @@ class DBLPHandler(ContentHandler):
         else:
             pubKey = self.fieldValues['key']
             if name in self.relationFields:
-                self.file_dict[name].write('{}, {}\n'.format(pubKey.encode('utf-8'), ((self.fieldValues[name]).strip()).encode('utf-8')))
+                self.file_dict[name].write('{},{}\n'.format(pubKey.encode('utf-8'), ((self.fieldValues[name]).replace('"','').strip()).encode('utf-8')))
                 self.fieldValues[name] = ""
 
     def characters(self, characters):

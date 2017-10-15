@@ -1,0 +1,299 @@
+Query 1
+   category    |  count  
+---------------+---------
+ incollection  |   44075
+ article       | 1417310
+ inproceedings | 1772684
+ book          |    9359
+(4 rows)
+
+Time: 1654.844 ms
+Query 2
+ conf_name 
+-----------
+ aaai
+ acl
+ amcc
+ amcis
+ amia
+ atal
+ ccnc
+ cec
+ chi
+ dagstuhl
+ gecco
+ hci
+ hicss
+ icc
+ iccsa
+ icdcs
+ iceis
+ icic
+ icinco
+ icml
+ icphs
+ icpp
+ icra
+ icse
+ ijcai
+ ijcnn
+ ipps
+ iwcmc
+ mipro
+ naacl
+ ni
+ pdpta
+ sac
+ siu
+ www
+(35 rows)
+
+Time: 1065.223 ms
+Query 3a
+ publication_id | category |             key             |   mdate    | publtype | reviewid | rating |                                title                                 | booktitle |  pages  | year | address |        journal         | volume | number | month | publisher_id | school | chapter 
+----------------+----------+-----------------------------+------------+----------+----------+--------+----------------------------------------------------------------------+-----------+---------+------+---------+------------------------+--------+--------+-------+--------------+--------+---------
+             37 | article  | journals/acta/GlabbeekGO15  | 2017-05-28 |          |          |        | Special issue on Combining Compositionality and Concurrency: part 1. |           | 3-4     | 2015 |         | Acta Inf.              | 52     | 1      |       |              |        |        
+           1438 | article  | journals/acta/GlabbeekGO15a | 2017-05-28 |          |          |        | Special issue on Combining Compositionality and Concurrency: part 2. |           | 303-304 | 2015 |         | Acta Inf.              | 52     | 4-5    |       |              |        |        
+        1115941 | article  | journals/ife/GoltzRGHMV15   | 2017-09-16 |          |          |        | Design for future: managed software evolution.                       |           | 321-331 | 2015 |         | Computer Science - R&D | 30     | 3-4    |       |              |        |        
+(3 rows)
+
+Time: 2575.903 ms
+Query 3b
+ publication_id |   category    |           key           |   mdate    | publtype | reviewid | rating |         title          | booktitle | pages | year | address | journal | volume | number | month | publisher_id | school | chapter 
+----------------+---------------+-------------------------+------------+----------+----------+--------+------------------------+-----------+-------+------+---------+---------+--------+--------+-------+--------------+--------+---------
+        1828350 | inproceedings | conf/bmvc/MowforthSJU90 | 2017-05-21 |          |          |        | A head called Richard. | BMVC      | 1-6   | 1990 |         |         |        |        |       |              |        |        
+(1 row)
+
+Time: 1782.732 ms
+Query 3c
+          name          
+------------------------
+  Andrew Blake 0001
+  Andrew Zisserman
+  Chris Harris
+  Christopher J. Taylor
+  David A. Forsyth
+  David W. Murray
+  Geoffrey D. Sullivan
+  J. Michael Brady
+  John E. W. Mayhew
+  John P. Frisby
+  John Porrill
+  Joseph L. Mundy
+  Keith D. Baker
+  Neil A. Thacker
+  Robert B. Fisher
+  Stephen Pollard
+(16 rows)
+
+Time: 2197.742 ms
+Query 4a
+          name           | author_id 
+-------------------------+-----------
+  Ugur Çetintemel        |     10503
+  Jignesh M. Patel       |     12951
+  M. Tamer Özsu          |     35690
+  Philip S. Yu           |     59063
+  Jeffrey F. Naughton    |     86497
+  Guoliang Li            |     87205
+  Joseph M. Hellerstein  |     87398
+  Stanley B. Zdonik      |    109048
+  Lei Chen 0002          |    115591
+  Xifeng Yan             |    153768
+  Hector Garcia-Molina   |    193769
+  Laks V. S. Lakshmanan  |    199284
+  Haixun Wang            |    223434
+  Alfons Kemper          |    254712
+  Michael J. Franklin    |    256070
+  Yanlei Diao            |    295565
+  Dan Suciu              |    299265
+  Jiawei Han 0001        |    325193
+  Nick Koudas            |    360825
+  Gao Cong               |    364645
+  Mourad Ouzzani         |    402605
+  James Cheng            |    405111
+  Eugene Wu 0002         |    431904
+  Jun Yang 0001          |    432222
+  Ashwin Machanavajjhala |    458057
+  Shivnath Babu          |    549520
+  Volker Markl           |    587210
+  Tim Kraska             |    616698
+  Xin Luna Dong          |    626779
+  Alon Y. Halevy         |    631717
+  Martin L. Kersten      |    640162
+  Gustavo Alonso         |    738337
+  Xuemin Lin             |    801748
+  Wolfgang Lehner        |    822237
+  David Maier            |    825573
+  Paolo Papotti          |    836060
+  Tova Milo              |    836298
+  Divesh Srivastava      |    854892
+Time: 3826.315 ms
+Query 4b
+         name          
+-----------------------
+  Magdalena Balazinska
+  Wenfei Fan
+  Ihab F. Ilyas
+  Jignesh M. Patel
+  Michael J. Franklin
+  Dan Suciu
+  Jens Dittrich
+  Tim Kraska
+  Tova Milo
+  Thomas Neumann 0001
+  Samuel Madden
+  Christopher Ré
+  Christian S. Jensen
+  Anastasia Ailamaki
+  Mohamed F. Mokbel
+(15 rows)
+
+Time: 6591.950 ms
+Query 5
+ y3  |  count  
+-----+---------
+ 200 | 1331086
+ 201 | 1912862
+ 198 |  117634
+ 199 |  407435
+ 197 |   38947
+(5 rows)
+
+Time: 2227.128 ms
+Query 6
+   author   | collaborators_count 
+------------+---------------------
+  Wei Wang  |                2326
+  Wei Li    |                2260
+  Yang Liu  |                1973
+  Wei Zhang |                1942
+  Lei Wang  |                1909
+  Jing Li   |                1894
+  Jun Wang  |                1881
+  Li Zhang  |                1840
+  Lei Zhang |                1837
+  Yu Zhang  |                1768
+(10 rows)
+
+Time: 76363.340 ms
+Query 7
+        name        | publication_count 
+--------------------+-------------------
+  Alfredo Cuzzocrea |                92
+  Sören Auer        |                87
+  Wolfgang Lehner   |                73
+  Erik Mannens      |                67
+  Francisco Herrera |                65
+  Jun Wang          |                64
+  Ruben Verborgh    |                64
+  Rajiv Ranjan      |                62
+  Albert Y. Zomaya  |                59
+  Fan Zhang         |                58
+(10 rows)
+
+Time: 5889.446 ms
+Query 8
+ conf_name 
+-----------
+ ACISicis
+ aaai
+ acl
+ amcc
+ amcis
+ amia
+ apcc
+ appinf
+ atal
+ biorob
+ bmsb
+ ccgrid
+ ccnc
+ cec
+ cgiv
+ chi
+ cicc
+ cse
+ dac
+ dagstuhl
+ eacl
+ edm
+ esann
+ eucnc
+ fgr
+ flairs
+ gecco
+ gmds
+ haptics
+ hci
+ hicss
+ iassist
+ icaart
+ icalp
+ icc
+ iccc
+ iccsa
+ icdcs
+Time: 1044.135 ms
+Query 9a
+          name           | author_id 
+-------------------------+-----------
+  Theo Härder            |      9363
+  David Hutchison        |     17286
+  Pascal Van Hentenryck  |     20053
+  Nicholas J. Higham     |     34525
+  James A. Hendler       |     50362
+  David Haussler         |     64634
+  Seth Hutchinson        |    148286
+  Thomas S. Huang        |    242555
+  Geoffrey E. Hinton     |    243141
+  David Harel            |    316146
+  Johan Håstad           |    549291
+  Alan R. Hevner         |    662832
+  Manuel V. Hermenegildo |    663797
+  Jenq-Neng Hwang        |    690843
+  Pierre Hansen          |    817770
+  Scott E. Hudson        |    916451
+  Vincent Hayward        |    992508
+  Ali R. Hurson          |   1195555
+  Michael Hanus          |   1237940
+  Lenwood S. Heath       |   1244367
+  Rolf Hennicker         |   1267423
+  Maurice Herlihy        |   1289694
+  Matthew Hennessy       |   1296259
+  Juraj Hromkovic        |   1404395
+  Richard Hull           |   1405923
+  John P. Hayes          |   1407924
+  Joseph Y. Halpern      |   1705375
+  Frank van Harmelen     |   1742519
+  Richard I. Hartley     |   1753710
+  Wen-mei W. Hwu         |   1780543
+  Mark Horowitz          |   1902735
+(31 rows)
+
+Time: 7832.114 ms
+Query 9b
+ author_id |          name           | count 
+-----------+-------------------------+-------
+    157743 |  C. J. Ducasse          |     4
+    283295 |  Alonzo Church          |     6
+    633094 |  J. Barkley Rosser      |    18
+    720151 |  Arnold F. Emch         |     3
+    721790 |  Frederic Brenton Fitch |    30
+   1764135 |  C. I. Lewis            |     1
+   1917199 |  Emil L. Post           |     3
+   1936885 |  W. V. Quine            |    28
+(8 rows)
+
+Time: 6556.718 ms
+Query 10
+ firstname | count 
+-----------+-------
+ David     | 56876
+ Michael   | 55810
+ Daniel    | 36486
+ Thomas    | 34894
+ Peter     | 32626
+(5 rows)
+
+Time: 22397.869 ms
