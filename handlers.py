@@ -1,19 +1,23 @@
 from xml.sax.handler import ContentHandler
 
+
 class DBLPHandler(ContentHandler):
 
-    PUBLICATION_TYPE_FIELD_NAME = "category";
-    ARTICLE_TAG_NAME = "article";
-    BOOK_TAG_NAME = "book";
-    INPROCEEDINGS_TAG_NAME = "inproceedings";
-    INCOLLECTION_TAG_NAME = "incollection";
+    PUBLICATION_TYPE_FIELD_NAME = "category"
+    ARTICLE_TAG_NAME = "article"
+    BOOK_TAG_NAME = "book"
+    INPROCEEDINGS_TAG_NAME = "inproceedings"
+    INCOLLECTION_TAG_NAME = "incollection"
 
     isPublication = False
     currentField = ""
     fieldValues = {}
-    fieldNames = [PUBLICATION_TYPE_FIELD_NAME,"key","mdate","publtype","reviewid","rating","title","booktitle","pages","year","address","journal", "volume", "number", "month", "school", "chapter"]
+    fieldNames = [PUBLICATION_TYPE_FIELD_NAME, "key", "mdate", "publtype", "reviewid", "rating",
+                  "title", "booktitle", "pages", "year", "address", "journal", "volume", "number",
+                  "month", "school", "chapter"]
     relationFields = ["publisher", "author", "editor", "cite", "url", "note", "isbn", "crossref"]
-    tagNames = [PUBLICATION_TYPE_FIELD_NAME, ARTICLE_TAG_NAME, BOOK_TAG_NAME, INPROCEEDINGS_TAG_NAME, INCOLLECTION_TAG_NAME]
+    tagNames = [PUBLICATION_TYPE_FIELD_NAME, ARTICLE_TAG_NAME, BOOK_TAG_NAME,
+                INPROCEEDINGS_TAG_NAME, INCOLLECTION_TAG_NAME]
     file_dict = {}
     pub_count = 0
 
@@ -22,21 +26,20 @@ class DBLPHandler(ContentHandler):
             self.file_dict[rf] = open(rf+'.csv', 'a')
         self.file_dict['publication'] = open('publication2.csv', 'a')
 
-
     def startElement(self, name, attrs):
         if self.isPublicationStartTag(name):
             self.isPublication = True
             self.fieldValues[self.PUBLICATION_TYPE_FIELD_NAME] = name
             for key in attrs.keys():
-                self.fieldValues[key] = attrs[key].replace('\n','')
+                self.fieldValues[key] = attrs[key].replace('\n', '')
         self.currentField = name
 
     def endElement(self, name):
         if self.isPublicationClosingTag(name):
             self.pub_count += 1
-            if self.pub_count%10 == 0:
-                print "pub_count"
-                print self.pub_count
+            if self.pub_count % 10 == 0:
+                print("pub_count")
+                print(self.pub_count)
             self.isPublication = False
             self.flushValues()
         elif not self.isPublication:
@@ -44,7 +47,8 @@ class DBLPHandler(ContentHandler):
         else:
             pubKey = self.fieldValues['key']
             if name in self.relationFields:
-                self.file_dict[name].write('{}, {}\n'.format(pubKey.encode('utf-8'), self.fieldValues[name].encode('utf-8')))
+                self.file_dict[name].write('{}, {}\n'.format(pubKey.encode('utf-8'),
+                                           self.fieldValues[name].encode('utf-8')))
                 self.fieldValues[name] = ""
 
     def characters(self, characters):
@@ -52,14 +56,14 @@ class DBLPHandler(ContentHandler):
             return
         currentEntry = self.fieldValues.get(self.currentField, "")
         currentEntry += characters
-        self.fieldValues[self.currentField] = currentEntry.replace('\n','')
-
+        self.fieldValues[self.currentField] = currentEntry.replace('\n', '')
 
     def isPublicationStartTag(self, tagname):
         return tagname.lower() in self.tagNames
 
     def isPublicationClosingTag(self, tagname):
-        if self.isPublicationStartTag(tagname) and (self.fieldValues[self.PUBLICATION_TYPE_FIELD_NAME]).lower() == tagname.lower():
+        if self.isPublicationStartTag(tagname) and \
+          (self.fieldValues[self.PUBLICATION_TYPE_FIELD_NAME]).lower() == tagname.lower():
             return True
         else:
             return False
