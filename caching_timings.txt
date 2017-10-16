@@ -1,0 +1,1031 @@
+shared buffer is 64MB
+
+Query 1
+   category    |  count
+---------------+---------
+ incollection  |   44075
+ article       | 1417310
+ inproceedings | 1772684
+ book          |    9359
+(4 rows)
+
+Time: 5878.345 ms
+Query 2
+ conf_name
+-----------
+ aaai
+ acl
+ amcc
+ amcis
+ amia
+ atal
+ ccnc
+ cec
+ chi
+ dagstuhl
+ gecco
+ hci
+ hicss
+ icc
+ iccsa
+ icdcs
+ iceis
+ icic
+ icinco
+ icml
+ icphs
+ icpp
+ icra
+ icse
+ ijcai
+ ijcnn
+ ipps
+ iwcmc
+ mipro
+ naacl
+ ni
+ pdpta
+ sac
+ siu
+ www
+(35 rows)
+
+Time: 1684.793 ms
+Query 3a
+ publication_id | category |             key             | conf_name | parent_type |   mdate    |                                title                                 | year |        journal         | month
+----------------+----------+-----------------------------+-----------+-------------+------------+----------------------------------------------------------------------+------+------------------------+-------
+             37 | article  | journals/acta/GlabbeekGO15  | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 1. | 2015 | Acta Inf.              |
+           1443 | article  | journals/acta/GlabbeekGO15a | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 2. | 2015 | Acta Inf.              |
+        1115948 | article  | journals/ife/GoltzRGHMV15   | ife       | journals    | 2017-09-16 | Design for future: managed software evolution.                       | 2015 | Computer Science - R&D |
+(3 rows)
+
+Time: 2287.157 ms
+Query 3b
+ publication_id |   category    |           key           | conf_name | parent_type |   mdate    |         title          | year | journal | month
+----------------+---------------+-------------------------+-----------+-------------+------------+------------------------+------+---------+-------
+        1828377 | inproceedings | conf/bmvc/MowforthSJU90 | bmvc      | conf        | 2017-05-21 | A head called Richard. | 1990 |         |
+(1 row)
+
+Time: 1690.885 ms
+Query 3c
+         name
+-----------------------
+ Andrew Blake 0001
+ Andrew Zisserman
+ Chris Harris
+ Christopher J. Taylor
+ David A. Forsyth
+ David W. Murray
+ Geoffrey D. Sullivan
+ J. Michael Brady
+ John E. W. Mayhew
+ John P. Frisby
+ John Porrill
+ Joseph L. Mundy
+ Keith D. Baker
+ Neil A. Thacker
+ Robert B. Fisher
+ Stephen Pollard
+(16 rows)
+
+Time: 1790.029 ms
+Query 4a
+          name          | author_id
+------------------------+-----------
+ Mourad Ouzzani         |      7651
+ Laks V. S. Lakshmanan  |    112287
+ Johannes Gehrke        |    115356
+ Ugur Çetintemel        |    143198
+ Dan Suciu              |    174577
+ Shivnath Babu          |    200394
+ Wolfgang Lehner        |    229547
+ David Maier            |    233723
+ Haixun Wang            |    238177
+ M. Tamer Özsu          |    273848
+ Sihem Amer-Yahia       |    402174
+ Tim Kraska             |    437088
+ Jeffrey F. Naughton    |    466908
+ Jiawei Han 0001        |    476940
+ Stanley B. Zdonik      |    528462
+ Andrew Pavlo           |    556336
+ Jignesh M. Patel       |    563368
+ Samuel Madden          |    595841
+ Hector Garcia-Molina   |    607475
+ Nick Koudas            |    615126
+ Eugene Wu 0002         |    619539
+ Tova Milo              |    621928
+ Gao Cong               |    621990
+ Stefan Manegold        |    690433
+ Michael Stonebraker    |    710822
+ Xiaokui Xiao           |    739443
+ H. V. Jagadish         |    774268
+ Michael J. Franklin    |    776291
+ Thomas Neumann 0001    |    792363
+ Guoliang Li            |    832926
+ Renée J. Miller        |    852396
+ Neoklis Polyzotis      |    858320
+ Paolo Papotti          |    872421
+ Christian S. Jensen    |    920479
+ Jianzhong Li           |    935689
+ Xin Luna Dong          |   1050931
+ Philip S. Yu           |   1088681
+ Anthony K. H. Tung     |   1111524
+ Gustavo Alonso         |   1150755
+ Beng Chin Ooi          |   1166115
+ Donald Kossmann        |   1171809
+ Jun Yang 0001          |   1189325
+ Xuemin Lin             |   1209410
+ Magdalena Balazinska   |   1223240
+ Xifeng Yan             |   1226161
+ Alon Y. Halevy         |   1238221
+ Joseph M. Hellerstein  |   1239869
+ Lei Chen 0002          |   1244851
+ Yanlei Diao            |   1245635
+ Divyakant Agrawal      |   1356114
+ Christoph Koch 0001    |   1364732
+ Divesh Srivastava      |   1371376
+ Anastasia Ailamaki     |   1383413
+ Surajit Chaudhuri      |   1405498
+ Amol Deshpande         |   1425362
+ Vivek R. Narasayya     |   1437647
+ Ashwin Machanavajjhala |   1454397
+ Alfons Kemper          |   1501613
+ Amr El Abbadi          |   1502605
+Time: 2303.899 ms
+Query 4b
+         name
+----------------------
+ Wenfei Fan
+ Jignesh M. Patel
+ Magdalena Balazinska
+ Michael J. Franklin
+ Mohamed F. Mokbel
+ Dan Suciu
+ Samuel Madden
+ Tova Milo
+ Anastasia Ailamaki
+ Ihab F. Ilyas
+ Jens Dittrich
+ Tim Kraska
+ Thomas Neumann 0001
+ Christian S. Jensen
+ Christopher Ré
+(15 rows)
+
+Time: 3920.284 ms
+Query 5
+ y3  |  count
+-----+---------
+ 200 | 1331086
+ 201 | 1912862
+ 198 |  117634
+ 199 |  407435
+ 197 |   38947
+(5 rows)
+
+Time: 7193.291 ms
+Query 6
+  author   | collaborators_count
+-----------+---------------------
+ Wei Wang  |                2326
+ Wei Li    |                2260
+ Yang Liu  |                1973
+ Wei Zhang |                1942
+ Lei Wang  |                1909
+ Jing Li   |                1894
+ Jun Wang  |                1881
+ Li Zhang  |                1840
+ Lei Zhang |                1837
+ Yu Zhang  |                1768
+(10 rows)
+
+Time: 68650.722 ms
+Query 7
+       name        | publication_count
+-------------------+-------------------
+ Alfredo Cuzzocrea |                92
+ Sören Auer        |                87
+ Wolfgang Lehner   |                73
+ Erik Mannens      |                67
+ Francisco Herrera |                65
+ Ruben Verborgh    |                64
+ Jun Wang          |                64
+ Rajiv Ranjan      |                62
+ Albert Y. Zomaya  |                59
+ Fan Zhang         |                58
+(10 rows)
+
+Time: 9510.773 ms
+Query 8
+ conf_name
+-----------
+ sigir
+ edm
+ interact
+ gmds
+ ijcai
+ mmvr
+ iassist
+ mva
+ ieaaie
+ iccsa
+ amia
+ sac
+ cse
+ mipro
+ amcc
+ isvlsi
+ aaai
+ amcis
+ ms
+ icic
+ mobisys
+ appinf
+ atal
+ wscg
+ iwcmc
+ mie
+ chi
+ icra
+ ipps
+ icc
+ cicc
+ cgiv
+ eucnc
+ dac
+ iccc
+ icdcs
+ siu
+ hci
+ icse
+ icalp
+ www
+ ijcnn
+ pics
+ cec
+ um
+ icml
+ ACISicis
+ esann
+ ccgrid
+ iticse
+ pdpta
+ icphs
+ gecco
+ visapp
+ naacl
+ apcc
+ ccnc
+ fgr
+ icinco
+Time: 815.924 ms
+Query 9a
+          name          | author_id
+------------------------+-----------
+ Rolf Hennicker         |     51341
+ Pascal Van Hentenryck  |     96270
+ Mark Horowitz          |    129809
+ Seth Hutchinson        |    141854
+ Geoffrey E. Hinton     |    279157
+ Thomas S. Huang        |    370588
+ Johan Håstad           |    493321
+ Joseph Y. Halpern      |    557281
+ Wen-mei W. Hwu         |    573355
+ Richard I. Hartley     |    616566
+ David Hutchison        |    665068
+ Pierre Hansen          |    678851
+ Michael Hanus          |    727270
+ Frank van Harmelen     |    739432
+ Lenwood S. Heath       |    790207
+ Vincent Hayward        |    839773
+ Ali R. Hurson          |   1044790
+ Theo Härder            |   1214753
+ Alan R. Hevner         |   1228319
+ Jenq-Neng Hwang        |   1289948
+ Juraj Hromkovic        |   1318627
+ Maurice Herlihy        |   1482693
+ David Harel            |   1529416
+ Richard Hull           |   1593795
+ John P. Hayes          |   1709531
+ Manuel V. Hermenegildo |   1805493
+ James A. Hendler       |   1811366
+ Scott E. Hudson        |   1848579
+ David Haussler         |   1888135
+ Nicholas J. Higham     |   1906306
+ Matthew Hennessy       |   1969159
+(31 rows)
+
+Time: 9292.985 ms
+Query 9b
+ author_id |          name          | count
+-----------+------------------------+-------
+    259865 | J. Barkley Rosser      |    18
+    466390 | Alonzo Church          |     6
+    544831 | Emil L. Post           |     3
+    788422 | C. I. Lewis            |     1
+    986737 | W. V. Quine            |    28
+   1266027 | Frederic Brenton Fitch |    30
+   1436589 | Arnold F. Emch         |     3
+   1824470 | C. J. Ducasse          |     4
+(8 rows)
+
+Time: 8086.546 ms
+Query 10
+ firstname | count
+-----------+-------
+ David     | 10385
+ Michael   | 10181
+ Daniel    |  7691
+ Thomas    |  6440
+ Wei       |  5668
+(5 rows)
+
+Time: 25041.455 ms
+
+shared buffer is 128MB
+
+Query 1
+   category    |  count
+---------------+---------
+ incollection  |   44075
+ article       | 1417310
+ inproceedings | 1772684
+ book          |    9359
+(4 rows)
+
+Time: 6049.313 ms
+Query 2
+ conf_name
+-----------
+ aaai
+ acl
+ amcc
+ amcis
+ amia
+ atal
+ ccnc
+ cec
+ chi
+ dagstuhl
+ gecco
+ hci
+ hicss
+ icc
+ iccsa
+ icdcs
+ iceis
+ icic
+ icinco
+ icml
+ icphs
+ icpp
+ icra
+ icse
+ ijcai
+ ijcnn
+ ipps
+ iwcmc
+ mipro
+ naacl
+ ni
+ pdpta
+ sac
+ siu
+ www
+(35 rows)
+
+Time: 1712.598 ms
+Query 3a
+ publication_id | category |             key             | conf_name | parent_type |   mdate    |                                title                                 | year |        journal         | month
+----------------+----------+-----------------------------+-----------+-------------+------------+----------------------------------------------------------------------+------+------------------------+-------
+             37 | article  | journals/acta/GlabbeekGO15  | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 1. | 2015 | Acta Inf.              |
+           1443 | article  | journals/acta/GlabbeekGO15a | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 2. | 2015 | Acta Inf.              |
+        1115948 | article  | journals/ife/GoltzRGHMV15   | ife       | journals    | 2017-09-16 | Design for future: managed software evolution.                       | 2015 | Computer Science - R&D |
+(3 rows)
+
+Time: 2375.848 ms
+Query 3b
+ publication_id |   category    |           key           | conf_name | parent_type |   mdate    |         title          | year | journal | month
+----------------+---------------+-------------------------+-----------+-------------+------------+------------------------+------+---------+-------
+        1828377 | inproceedings | conf/bmvc/MowforthSJU90 | bmvc      | conf        | 2017-05-21 | A head called Richard. | 1990 |         |
+(1 row)
+
+Time: 1904.835 ms
+Query 3c
+         name
+-----------------------
+ Andrew Blake 0001
+ Andrew Zisserman
+ Chris Harris
+ Christopher J. Taylor
+ David A. Forsyth
+ David W. Murray
+ Geoffrey D. Sullivan
+ J. Michael Brady
+ John E. W. Mayhew
+ John P. Frisby
+ John Porrill
+ Joseph L. Mundy
+ Keith D. Baker
+ Neil A. Thacker
+ Robert B. Fisher
+ Stephen Pollard
+(16 rows)
+
+Time: 2035.284 ms
+Query 4a
+          name          | author_id
+------------------------+-----------
+ Mourad Ouzzani         |      7651
+ Laks V. S. Lakshmanan  |    112287
+ Johannes Gehrke        |    115356
+ Ugur Çetintemel        |    143198
+ Dan Suciu              |    174577
+ Shivnath Babu          |    200394
+ Wolfgang Lehner        |    229547
+ David Maier            |    233723
+ Haixun Wang            |    238177
+ M. Tamer Özsu          |    273848
+ Sihem Amer-Yahia       |    402174
+ Tim Kraska             |    437088
+ Jeffrey F. Naughton    |    466908
+ Jiawei Han 0001        |    476940
+ Stanley B. Zdonik      |    528462
+ Andrew Pavlo           |    556336
+ Jignesh M. Patel       |    563368
+ Samuel Madden          |    595841
+ Hector Garcia-Molina   |    607475
+ Nick Koudas            |    615126
+ Eugene Wu 0002         |    619539
+ Tova Milo              |    621928
+ Gao Cong               |    621990
+ Stefan Manegold        |    690433
+ Michael Stonebraker    |    710822
+ Xiaokui Xiao           |    739443
+ H. V. Jagadish         |    774268
+ Michael J. Franklin    |    776291
+ Thomas Neumann 0001    |    792363
+ Guoliang Li            |    832926
+ Renée J. Miller        |    852396
+ Neoklis Polyzotis      |    858320
+ Paolo Papotti          |    872421
+ Christian S. Jensen    |    920479
+ Jianzhong Li           |    935689
+ Xin Luna Dong          |   1050931
+ Philip S. Yu           |   1088681
+ Anthony K. H. Tung     |   1111524
+ Gustavo Alonso         |   1150755
+ Beng Chin Ooi          |   1166115
+ Donald Kossmann        |   1171809
+ Jun Yang 0001          |   1189325
+ Xuemin Lin             |   1209410
+ Magdalena Balazinska   |   1223240
+ Xifeng Yan             |   1226161
+ Alon Y. Halevy         |   1238221
+ Joseph M. Hellerstein  |   1239869
+ Lei Chen 0002          |   1244851
+ Yanlei Diao            |   1245635
+ Divyakant Agrawal      |   1356114
+ Christoph Koch 0001    |   1364732
+ Divesh Srivastava      |   1371376
+ Anastasia Ailamaki     |   1383413
+ Surajit Chaudhuri      |   1405498
+ Amol Deshpande         |   1425362
+ Vivek R. Narasayya     |   1437647
+ Ashwin Machanavajjhala |   1454397
+ Alfons Kemper          |   1501613
+ Amr El Abbadi          |   1502605
+Time: 2895.477 ms
+Query 4b
+         name
+----------------------
+ Wenfei Fan
+ Jignesh M. Patel
+ Magdalena Balazinska
+ Michael J. Franklin
+ Mohamed F. Mokbel
+ Dan Suciu
+ Samuel Madden
+ Tova Milo
+ Anastasia Ailamaki
+ Ihab F. Ilyas
+ Jens Dittrich
+ Tim Kraska
+ Thomas Neumann 0001
+ Christian S. Jensen
+ Christopher Ré
+(15 rows)
+
+Time: 3827.355 ms
+Query 5
+ y3  |  count
+-----+---------
+ 200 | 1331086
+ 201 | 1912862
+ 198 |  117634
+ 199 |  407435
+ 197 |   38947
+(5 rows)
+
+Time: 7053.506 ms
+Query 6
+  author   | collaborators_count
+-----------+---------------------
+ Wei Wang  |                2326
+ Wei Li    |                2260
+ Yang Liu  |                1973
+ Wei Zhang |                1942
+ Lei Wang  |                1909
+ Jing Li   |                1894
+ Jun Wang  |                1881
+ Li Zhang  |                1840
+ Lei Zhang |                1837
+ Yu Zhang  |                1768
+(10 rows)
+
+Time: 66716.921 ms
+Query 7
+       name        | publication_count
+-------------------+-------------------
+ Alfredo Cuzzocrea |                92
+ Sören Auer        |                87
+ Wolfgang Lehner   |                73
+ Erik Mannens      |                67
+ Francisco Herrera |                65
+ Ruben Verborgh    |                64
+ Jun Wang          |                64
+ Rajiv Ranjan      |                62
+ Albert Y. Zomaya  |                59
+ Fan Zhang         |                58
+(10 rows)
+
+Time: 8773.529 ms
+Query 8
+ conf_name
+-----------
+ sigir
+ edm
+ interact
+ gmds
+ ijcai
+ mmvr
+ iassist
+ mva
+ ieaaie
+ iccsa
+ amia
+ sac
+ cse
+ mipro
+ amcc
+ isvlsi
+ aaai
+ amcis
+ ms
+ icic
+ mobisys
+ appinf
+ atal
+ wscg
+ iwcmc
+ mie
+ chi
+ icra
+ ipps
+ icc
+ cicc
+ cgiv
+ eucnc
+ dac
+ iccc
+ icdcs
+ siu
+ hci
+ icse
+ icalp
+ www
+ ijcnn
+ pics
+ cec
+ um
+ icml
+ ACISicis
+ esann
+ ccgrid
+ iticse
+ pdpta
+ icphs
+ gecco
+ visapp
+ naacl
+ apcc
+ ccnc
+ fgr
+ icinco
+Time: 840.897 ms
+Query 9a
+          name          | author_id
+------------------------+-----------
+ Rolf Hennicker         |     51341
+ Pascal Van Hentenryck  |     96270
+ Mark Horowitz          |    129809
+ Seth Hutchinson        |    141854
+ Geoffrey E. Hinton     |    279157
+ Thomas S. Huang        |    370588
+ Johan Håstad           |    493321
+ Joseph Y. Halpern      |    557281
+ Wen-mei W. Hwu         |    573355
+ Richard I. Hartley     |    616566
+ David Hutchison        |    665068
+ Pierre Hansen          |    678851
+ Michael Hanus          |    727270
+ Frank van Harmelen     |    739432
+ Lenwood S. Heath       |    790207
+ Vincent Hayward        |    839773
+ Ali R. Hurson          |   1044790
+ Theo Härder            |   1214753
+ Alan R. Hevner         |   1228319
+ Jenq-Neng Hwang        |   1289948
+ Juraj Hromkovic        |   1318627
+ Maurice Herlihy        |   1482693
+ David Harel            |   1529416
+ Richard Hull           |   1593795
+ John P. Hayes          |   1709531
+ Manuel V. Hermenegildo |   1805493
+ James A. Hendler       |   1811366
+ Scott E. Hudson        |   1848579
+ David Haussler         |   1888135
+ Nicholas J. Higham     |   1906306
+ Matthew Hennessy       |   1969159
+(31 rows)
+
+Time: 9086.304 ms
+Query 9b
+ author_id |          name          | count
+-----------+------------------------+-------
+    259865 | J. Barkley Rosser      |    18
+    466390 | Alonzo Church          |     6
+    544831 | Emil L. Post           |     3
+    788422 | C. I. Lewis            |     1
+    986737 | W. V. Quine            |    28
+   1266027 | Frederic Brenton Fitch |    30
+   1436589 | Arnold F. Emch         |     3
+   1824470 | C. J. Ducasse          |     4
+(8 rows)
+
+Time: 8224.788 ms
+Query 10
+ firstname | count
+-----------+-------
+ David     | 10385
+ Michael   | 10181
+ Daniel    |  7691
+ Thomas    |  6440
+ Wei       |  5668
+(5 rows)
+
+Time: 26601.173 ms
+
+Shared buffer is 256MB
+
+Query 1
+   category    |  count
+---------------+---------
+ incollection  |   44075
+ article       | 1417310
+ inproceedings | 1772684
+ book          |    9359
+(4 rows)
+
+Time: 5788.765 ms
+Query 2
+ conf_name
+-----------
+ aaai
+ acl
+ amcc
+ amcis
+ amia
+ atal
+ ccnc
+ cec
+ chi
+ dagstuhl
+ gecco
+ hci
+ hicss
+ icc
+ iccsa
+ icdcs
+ iceis
+ icic
+ icinco
+ icml
+ icphs
+ icpp
+ icra
+ icse
+ ijcai
+ ijcnn
+ ipps
+ iwcmc
+ mipro
+ naacl
+ ni
+ pdpta
+ sac
+ siu
+ www
+(35 rows)
+
+Time: 1678.626 ms
+Query 3a
+ publication_id | category |             key             | conf_name | parent_type |   mdate    |                                title                                 | year |        journal         | month
+----------------+----------+-----------------------------+-----------+-------------+------------+----------------------------------------------------------------------+------+------------------------+-------
+             37 | article  | journals/acta/GlabbeekGO15  | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 1. | 2015 | Acta Inf.              |
+           1443 | article  | journals/acta/GlabbeekGO15a | acta      | journals    | 2017-05-28 | Special issue on Combining Compositionality and Concurrency: part 2. | 2015 | Acta Inf.              |
+        1115948 | article  | journals/ife/GoltzRGHMV15   | ife       | journals    | 2017-09-16 | Design for future: managed software evolution.                       | 2015 | Computer Science - R&D |
+(3 rows)
+
+Time: 2237.590 ms
+Query 3b
+ publication_id |   category    |           key           | conf_name | parent_type |   mdate    |         title          | year | journal | month
+----------------+---------------+-------------------------+-----------+-------------+------------+------------------------+------+---------+-------
+        1828377 | inproceedings | conf/bmvc/MowforthSJU90 | bmvc      | conf        | 2017-05-21 | A head called Richard. | 1990 |         |
+(1 row)
+
+Time: 1552.905 ms
+Query 3c
+         name
+-----------------------
+ Andrew Blake 0001
+ Andrew Zisserman
+ Chris Harris
+ Christopher J. Taylor
+ David A. Forsyth
+ David W. Murray
+ Geoffrey D. Sullivan
+ J. Michael Brady
+ John E. W. Mayhew
+ John P. Frisby
+ John Porrill
+ Joseph L. Mundy
+ Keith D. Baker
+ Neil A. Thacker
+ Robert B. Fisher
+ Stephen Pollard
+(16 rows)
+
+Time: 1835.202 ms
+Query 4a
+          name          | author_id
+------------------------+-----------
+ Mourad Ouzzani         |      7651
+ Laks V. S. Lakshmanan  |    112287
+ Johannes Gehrke        |    115356
+ Ugur Çetintemel        |    143198
+ Dan Suciu              |    174577
+ Shivnath Babu          |    200394
+ Wolfgang Lehner        |    229547
+ David Maier            |    233723
+ Haixun Wang            |    238177
+ M. Tamer Özsu          |    273848
+ Sihem Amer-Yahia       |    402174
+ Tim Kraska             |    437088
+ Jeffrey F. Naughton    |    466908
+ Jiawei Han 0001        |    476940
+ Stanley B. Zdonik      |    528462
+ Andrew Pavlo           |    556336
+ Jignesh M. Patel       |    563368
+ Samuel Madden          |    595841
+ Hector Garcia-Molina   |    607475
+ Nick Koudas            |    615126
+ Eugene Wu 0002         |    619539
+ Tova Milo              |    621928
+ Gao Cong               |    621990
+ Stefan Manegold        |    690433
+ Michael Stonebraker    |    710822
+ Xiaokui Xiao           |    739443
+ H. V. Jagadish         |    774268
+ Michael J. Franklin    |    776291
+ Thomas Neumann 0001    |    792363
+ Guoliang Li            |    832926
+ Renée J. Miller        |    852396
+ Neoklis Polyzotis      |    858320
+ Paolo Papotti          |    872421
+ Christian S. Jensen    |    920479
+ Jianzhong Li           |    935689
+ Xin Luna Dong          |   1050931
+ Philip S. Yu           |   1088681
+ Anthony K. H. Tung     |   1111524
+ Gustavo Alonso         |   1150755
+ Beng Chin Ooi          |   1166115
+ Donald Kossmann        |   1171809
+ Jun Yang 0001          |   1189325
+ Xuemin Lin             |   1209410
+ Magdalena Balazinska   |   1223240
+ Xifeng Yan             |   1226161
+ Alon Y. Halevy         |   1238221
+ Joseph M. Hellerstein  |   1239869
+ Lei Chen 0002          |   1244851
+ Yanlei Diao            |   1245635
+ Divyakant Agrawal      |   1356114
+ Christoph Koch 0001    |   1364732
+ Divesh Srivastava      |   1371376
+ Anastasia Ailamaki     |   1383413
+ Surajit Chaudhuri      |   1405498
+ Amol Deshpande         |   1425362
+ Vivek R. Narasayya     |   1437647
+ Ashwin Machanavajjhala |   1454397
+ Alfons Kemper          |   1501613
+ Amr El Abbadi          |   1502605
+Time: 2426.006 ms
+Query 4b
+         name
+----------------------
+ Wenfei Fan
+ Jignesh M. Patel
+ Magdalena Balazinska
+ Michael J. Franklin
+ Mohamed F. Mokbel
+ Dan Suciu
+ Samuel Madden
+ Tova Milo
+ Anastasia Ailamaki
+ Ihab F. Ilyas
+ Jens Dittrich
+ Tim Kraska
+ Thomas Neumann 0001
+ Christian S. Jensen
+ Christopher Ré
+(15 rows)
+
+Time: 4180.448 ms
+Query 5
+ y3  |  count
+-----+---------
+ 200 | 1331086
+ 201 | 1912862
+ 198 |  117634
+ 199 |  407435
+ 197 |   38947
+(5 rows)
+
+Time: 6843.026 ms
+Query 6
+  author   | collaborators_count
+-----------+---------------------
+ Wei Wang  |                2326
+ Wei Li    |                2260
+ Yang Liu  |                1973
+ Wei Zhang |                1942
+ Lei Wang  |                1909
+ Jing Li   |                1894
+ Jun Wang  |                1881
+ Li Zhang  |                1840
+ Lei Zhang |                1837
+ Yu Zhang  |                1768
+(10 rows)
+
+Time: 70159.263 ms
+Query 7
+       name        | publication_count
+-------------------+-------------------
+ Alfredo Cuzzocrea |                92
+ Sören Auer        |                87
+ Wolfgang Lehner   |                73
+ Erik Mannens      |                67
+ Francisco Herrera |                65
+ Ruben Verborgh    |                64
+ Jun Wang          |                64
+ Rajiv Ranjan      |                62
+ Albert Y. Zomaya  |                59
+ Fan Zhang         |                58
+(10 rows)
+
+Time: 8722.839 ms
+Query 8
+ conf_name
+-----------
+ sigir
+ edm
+ interact
+ gmds
+ ijcai
+ mmvr
+ iassist
+ mva
+ ieaaie
+ iccsa
+ amia
+ sac
+ cse
+ mipro
+ amcc
+ isvlsi
+ aaai
+ amcis
+ ms
+ icic
+ mobisys
+ appinf
+ atal
+ wscg
+ iwcmc
+ mie
+ chi
+ icra
+ ipps
+ icc
+ cicc
+ cgiv
+ eucnc
+ dac
+ iccc
+ icdcs
+ siu
+ hci
+ icse
+ icalp
+ www
+ ijcnn
+ pics
+ cec
+ um
+ icml
+ ACISicis
+ esann
+ ccgrid
+ iticse
+ pdpta
+ icphs
+ gecco
+ visapp
+ naacl
+ apcc
+ ccnc
+ fgr
+ icinco
+Time: 834.469 ms
+Query 9a
+          name          | author_id
+------------------------+-----------
+ Rolf Hennicker         |     51341
+ Pascal Van Hentenryck  |     96270
+ Mark Horowitz          |    129809
+ Seth Hutchinson        |    141854
+ Geoffrey E. Hinton     |    279157
+ Thomas S. Huang        |    370588
+ Johan Håstad           |    493321
+ Joseph Y. Halpern      |    557281
+ Wen-mei W. Hwu         |    573355
+ Richard I. Hartley     |    616566
+ David Hutchison        |    665068
+ Pierre Hansen          |    678851
+ Michael Hanus          |    727270
+ Frank van Harmelen     |    739432
+ Lenwood S. Heath       |    790207
+ Vincent Hayward        |    839773
+ Ali R. Hurson          |   1044790
+ Theo Härder            |   1214753
+ Alan R. Hevner         |   1228319
+ Jenq-Neng Hwang        |   1289948
+ Juraj Hromkovic        |   1318627
+ Maurice Herlihy        |   1482693
+ David Harel            |   1529416
+ Richard Hull           |   1593795
+ John P. Hayes          |   1709531
+ Manuel V. Hermenegildo |   1805493
+ James A. Hendler       |   1811366
+ Scott E. Hudson        |   1848579
+ David Haussler         |   1888135
+ Nicholas J. Higham     |   1906306
+ Matthew Hennessy       |   1969159
+(31 rows)
+
+Time: 9342.125 ms
+Query 9b
+ author_id |          name          | count
+-----------+------------------------+-------
+    259865 | J. Barkley Rosser      |    18
+    466390 | Alonzo Church          |     6
+    544831 | Emil L. Post           |     3
+    788422 | C. I. Lewis            |     1
+    986737 | W. V. Quine            |    28
+   1266027 | Frederic Brenton Fitch |    30
+   1436589 | Arnold F. Emch         |     3
+   1824470 | C. J. Ducasse          |     4
+(8 rows)
+
+Time: 8170.337 ms
+Query 10
+ firstname | count
+-----------+-------
+ David     | 10385
+ Michael   | 10181
+ Daniel    |  7691
+ Thomas    |  6440
+ Wei       |  5668
+(5 rows)
+
+Time: 27080.643 ms

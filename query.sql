@@ -12,6 +12,7 @@
 --          (publication-type, count) pairs.
 --          For example (article, 20000), (inproceedings, 30000).....
 --------------------------------------------------------------------------------
+\timing on
 \echo Query 1
 SELECT category, COUNT(*) count
 FROM Publication
