@@ -1,0 +1,33 @@
+Quarter of the data
+
+Q1 Time: 1518.427 ms
+Q2 Time: 212.302 ms
+Q3a Time: 772.219 ms
+Q3b Time: 729.059 ms
+Q3c Time: 161.147 ms
+Q4a Time: 188.715 ms
+Q4b Time: 627.943 ms
+Q5 Time: 1797.104 ms
+Q6 Time: 15319.209 ms
+Q7 Time: 1807.463 ms
+Q8 Time: 217.017 ms
+Q9a Time: 1895.229 ms
+Q9b Time: 3398.859 ms
+Q10 Time: 4057.391 ms
+
+Half of the data
+
+Q1 Time: 3595.239 ms
+Q2 Time: 433.025 ms
+Q3a Time: 2731.326 ms
+Q3b Time: 1631.829 ms
+Q3c Time: 1390.090 ms
+Q4a Time: 1139.750 ms
+Q4b Time: 1206.488 ms
+Q5 Time: 5471.023 ms
+Q6 Time: 34279.392 ms
+Q7 Time: 4276.846 ms
+Q8 Time: 438.141 ms
+Q9a Time: 5558.346 ms
+Q9b Time: 6276.421 ms
+Q10 Time: 11325.331 ms
