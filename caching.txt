@@ -1,0 +1,34 @@
+db4031=# EXPLAIN (analyze,buffers) SELECT category, COUNT(*) count
+db4031-# FROM Publication
+db4031-# WHERE year BETWEEN '2000' AND '2017'
+db4031-# GROUP BY category;
+                                                           QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=163411.57..163411.61 rows=4 width=19) (actual time=6046.907..6046.908 rows=4 loops=1)
+   Group Key: category
+   Buffers: shared hit=64 read=89811
+   ->  Seq Scan on publication  (cost=0.00..147184.17 rows=3245482 width=11) (actual time=0.076..5301.402 rows=3243428 loops=1)
+         Filter: ((year >= '2000'::text) AND (year <= '2017'::text))
+         Rows Removed by Filter: 577183
+         Buffers: shared hit=64 read=89811
+ Planning time: 0.233 ms
+ Execution time: 6046.951 ms
+(9 rows)
+
+Time: 6050.463 ms
+db4031=# EXPLAIN (analyze,buffers) SELECT category, COUNT(*) count
+FROM Publication
+WHERE year BETWEEN '2000' AND '2017'
+GROUP BY category;
+                                                           QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=163411.57..163411.61 rows=4 width=19) (actual time=5997.291..5997.292 rows=4 loops=1)
+   Group Key: category
+   Buffers: shared hit=96 read=89779
+   ->  Seq Scan on publication  (cost=0.00..147184.17 rows=3245482 width=11) (actual time=0.053..5264.555 rows=3243428 loops=1)
+         Filter: ((year >= '2000'::text) AND (year <= '2017'::text))
+         Rows Removed by Filter: 577183
+         Buffers: shared hit=96 read=89779
+ Planning time: 0.216 ms
+ Execution time: 5997.332 ms
+(9 rows)
