@@ -31,3 +31,23 @@ Q8 Time: 438.141 ms
 Q9a Time: 5558.346 ms
 Q9b Time: 6276.421 ms
 Q10 Time: 11325.331 ms
+
+db4031=# SELECT COUNT(*) FROM PublicationAuthor;
+  count
+----------
+ 11119265
+(1 row)
+
+Time: 842.120 ms
+db4031=# SELECT COUNT(*) FROM Publication;
+  count
+---------
+ 3820611
+(1 row)
+
+Time: 507.798 ms
+db4031=# SELECT COUNT(*) FROM Author;
+  count
+---------
+ 1988710
+(1 row)
