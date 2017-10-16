@@ -19,7 +19,6 @@
 \echo Table PublicationCSV......
 ------------------------------------------------------------------------------
 DROP TABLE IF EXISTS PublicationCSV;
-
 CREATE TABLE PublicationCSV (
 	category TEXT NOT NULL,
 	key TEXT NOT NULL,
