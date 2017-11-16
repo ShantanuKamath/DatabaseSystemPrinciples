@@ -2,7 +2,7 @@ from . import utils
 
 
 def sequential_scan(plan, start=False):
-    text = utils.get_conjuction(start)
+    text = utils.get_conjunction(start)
     text += "a sequential scan is performed on the relation "
     if "Relation Name" in plan:
         text += plan['Relation Name']

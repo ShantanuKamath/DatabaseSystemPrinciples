@@ -11,7 +11,7 @@ def materialize(plan, start=False):
             if start:
                 start = False
     if plan["Node Type"] == "Materialize":
-        text += utils.get_conjuction(start)
+        text += utils.get_conjunction(start)
         text += " holding the results in memory enables efficient accessing. "
     return text
 

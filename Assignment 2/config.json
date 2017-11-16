@@ -2,7 +2,7 @@
 	"db":{
 		"host":"localhost", 
 		"database":"db4031",
-		"username":"priyanshusingh",
+		"username":"shantanukamath",
 		"password":""
 	},
 	"logging":{

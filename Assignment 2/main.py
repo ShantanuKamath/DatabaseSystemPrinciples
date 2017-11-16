@@ -35,7 +35,34 @@ def main():
                            db_config["password"])
 
     query_plan.explain(loop=True)
-    system("say Testing multiple query executions completed.")
+    # test = json.loads("""
+    # {
+    #     "Node Type": "Unrecognize",
+    #     "Parent Relationship": "Outer",
+    #     "Parallel Aware": false,
+    #     "Relation Name": "publication",
+    #     "Alias": "publication",
+    #     "Startup Cost": 0.00,
+    #     "Total Cost": 15525.89,
+    #     "Plan Rows": 574989,
+    #     "Plan Width": 0,
+    #     "Plans" :[
+    #         {
+    #             "Node Type": "Seq Scan",
+    #             "Parent Relationship": "Outer",
+    #             "Parallel Aware": false,
+    #             "Relation Name": "publication",
+    #             "Alias": "publication",
+    #             "Startup Cost": 0.00,
+    #             "Total Cost": 15525.89,
+    #             "Plan Rows": 574989,
+    #             "Plan Width": 0
+    #         }
+    #     ]
+    # }""")
+
+    # query_plan.exec_plan(test)
+    # system("say Testing multiple query executions completed.")
     # Marking end of program.
     logging.info("Finish logging.")
 

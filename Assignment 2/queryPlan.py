@@ -51,3 +51,11 @@ class QueryPlan:
         logging.info("Converted to: " + converted_plan)
         # Speak plan
         system("say %s" % converted_plan)
+        
+    def exec_plan(self, plan):
+        converted_plan = parser.parse_plan(plan, True)
+        print(converted_plan)
+        logging.info("Plan: " + json.dumps(plan))
+        logging.info("Converted to: " + converted_plan)
+        # Speak plan
+        system("say %s" % converted_plan)
