@@ -4,7 +4,7 @@ from parser import SequentialScan
 def parse_plan(plan, start=False):
 
     PARSER_MAP = {
-        "Seq Scan": SequentialScan.seq_scan,
+        "Seq Scan": SequentialScan.sequential_scan,
     }
 
     node = plan["Node Type"]

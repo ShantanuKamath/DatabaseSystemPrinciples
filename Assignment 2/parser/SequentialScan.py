@@ -1,5 +1,5 @@
-import json
 from parser import utils
+
 
 def sequential_scan(plan, start=False):
     text = utils.get_conjuction(start)
