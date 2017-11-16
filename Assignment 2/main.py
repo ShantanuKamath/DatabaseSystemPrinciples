@@ -2,7 +2,7 @@
 Main script to start application.
 """
 
-from os import system
+from testQueries import test_query_main
 from queryPlan import QueryPlan
 import logging
 import json
@@ -37,7 +37,8 @@ def main():
         db_config["username"],
         db_config["password"])
 
-    query_plan.explain(loop=True)
+    # query_plan.explain(loop=True)
+
 #     test = json.loads(""" {
 #         "Node Type": "Values Scan",
 #         "Parallel Aware": false,
@@ -50,6 +51,10 @@ def main():
 # """)
 
 #     query_plan.exec_plan(test)
+
+    for query in test_query_main():
+        query_plan.execute(query)
+
     # Marking end of program.
     logging.info("Finish logging.")
 
