@@ -1,10 +1,10 @@
-from parser import SequentialScan
+from parser import sequentialScan
 
 
 def parse_plan(plan, start=False):
 
     PARSER_MAP = {
-        "Seq Scan": SequentialScan.sequential_scan,
+        "Seq Scan": sequentialScan.sequential_scan,
     }
 
     node = plan["Node Type"]
