@@ -3,10 +3,11 @@ Main script to start application.
 """
 
 from os import system
+from queryPlan import QueryPlan
 
 import logging
 import json
-from queryPlan import QueryPlan
+
 
 def startLogger(filename):
     """
@@ -31,11 +32,10 @@ def main():
 
     db_config = config["db"]
 
-    # Configuring database connection
-    logging.info("Starting database connection.")
-
     query_plan = QueryPlan(db_config["host"], db_config["database"], db_config["username"],
                            db_config["password"])
+    query = "SELECT * FROM AUTHOR;"
+    query_plan.explain(query)
     system("say Testing psycopg query execution ")
     # Marking end of program.
     logging.info("Finish logging.")

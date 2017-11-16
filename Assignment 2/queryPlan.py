@@ -2,8 +2,9 @@
 A class to for the query plan object.
 """
 
-import psycopg2
+import json
 import logging
+import psycopg2
 
 
 class QueryPlan:
@@ -20,8 +21,19 @@ class QueryPlan:
             logging.info("Connection failed.")
 
         self.cursor = self.conn.cursor()
-        self.query = "SELECT * FROM Author"
 
+    def explain(self, query=None):
+        if query:
+            self.query = query
+
+        logging.info("Executing: ", self.query)
+        self.cursor.execute("EXPLAIN (FORMAT JSON) "+ self.query)
+        plan = self.cursor.fetchall()
+
+        # convert plan to natural language
+        converted_plan = "Plan in natural language"
+        logging.info("Plan: ", plan)
+        logging.info("Converted to: ", converted_plan)
         logging.info("Executing: " + self.query)
         self.cursor.execute("EXPLAIN (FORMAT JSON) " + self.query)
         plan = self.cursor.fetchall()
