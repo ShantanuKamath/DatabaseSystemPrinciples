@@ -9,7 +9,7 @@ def general_parser(plan, start=False):
     if "Plans" in plan:
         for successor in plan["Plans"]:
             text += parser.parse_plan(successor)
-        return text
+    return text
 
 
 if __name__ == "__main__":

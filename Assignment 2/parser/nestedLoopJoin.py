@@ -1,4 +1,6 @@
-import utils, parser
+from . import parser
+from . import utils
+
 
 def nested_loop_join(plan, start=False):
 	text = ""
