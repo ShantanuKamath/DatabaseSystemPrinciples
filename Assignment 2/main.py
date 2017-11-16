@@ -1,11 +1,12 @@
 """
-Main Script to start application
+Main script to start application.
 """
+
+from os import system
 
 import logging
 import json
-from os import system
-
+from queryPlan import QueryPlan
 
 def startLogger(filename):
     """
@@ -25,12 +26,19 @@ def main():
         config = json.load(file)
 
     startLogger(config["logging"]["path"])
-    logging.info("Start logging")
+    # Marking start of program.
+    logging.info("Start logging.")
 
-    system("say Testing logger and TTS")
-    logging.info("Testing logger and TTS")
+    db_config = config["db"]
 
-    logging.info("Finish logging")
+    # Configuring database connection
+    logging.info("Starting database connection.")
+
+    query_plan = QueryPlan(db_config["host"], db_config["database"], db_config["username"],
+                           db_config["password"])
+    system("say Testing psycopg query execution ")
+    # Marking end of program.
+    logging.info("Finish logging.")
 
 
 if __name__ == "__main__":
