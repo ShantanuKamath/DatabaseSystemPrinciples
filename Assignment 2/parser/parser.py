@@ -1,17 +1,18 @@
-from parser import sequentialScan, limit
+from parser import sequentialScan, limit, general_parser, materialize
 
 
 def parse_plan(plan, start=False):
 
     PARSER_MAP = {
         "Seq Scan": sequentialScan.sequential_scan,
-        "Limit": limit.limit
+        "Limit": limit.limit,
+        "Materialize": materialize.materialize
     }
 
     node = plan["Node Type"]
     if node in PARSER_MAP:
         parser = PARSER_MAP[node]
     else:
-        parser = None  # Add default parser
+        parser = general_parser  # Add default parser
     parsed_plan = parser(plan, start)
     return parsed_plan
