@@ -34,9 +34,9 @@ def main():
 
     query_plan = QueryPlan(db_config["host"], db_config["database"], db_config["username"],
                            db_config["password"])
-    query = "SELECT * FROM AUTHOR;"
-    query_plan.explain(query)
-    system("say Testing psycopg query execution ")
+
+    query_plan.explain(loop=True)
+    system("say Testing multiple query executions completed.")
     # Marking end of program.
     logging.info("Finish logging.")
 
