@@ -34,47 +34,24 @@ def main():
     query_plan = QueryPlan(db_config["host"], db_config["database"], db_config["username"],
                            db_config["password"])
 
-    # query_plan.explain(loop=True)
-    test = json.loads(""" {                                             
-       "Node Type": "Nested Loop",                                      
-       "Parallel Aware": false,                                         
-       "Join Type": "Inner",                                            
-       "Startup Cost": 0.42,                                            
-       "Total Cost": 27931.81,                                          
-       "Plan Rows": 1,                                                  
-       "Plan Width": 100,                                               
-       "Plans": [                                                       
-         {                                                              
-           "Node Type": "Seq Scan",                                     
-           "Parent Relationship": "Outer",                              
-           "Parallel Aware": false,                                     
-           "Relation Name": "pub_auth",                                 
-           "Alias": "pub_auth",                                         
-           "Startup Cost": 0.00,                                        
-           "Total Cost": 27889.54,                                      
-           "Plan Rows": 5,                                              
-           "Plan Width": 23,                                            
-           "Filter": "((author)::text = 'Hongli Xu'::text)"             
-         },                                                             
-         {                                                              
-           "Node Type": "Index Scan",                                   
-           "Parent Relationship": "Inner",                              
-           "Parallel Aware": false,                                     
-           "Scan Direction": "Forward",                                 
-           "Index Name": "publication_pkey",                            
-           "Relation Name": "publication",                              
-           "Alias": "publication",                                      
-           "Startup Cost": 0.42,                                        
-           "Total Cost": 8.45,                                          
-           "Plan Rows": 1,                                              
-           "Plan Width": 100,                                           
-           "Index Cond": "((pub_key)::text = (pub_auth.pub_key)::text)",
-           "Filter": "(year = 2015)"                                    
-         }                                                              
-       ]                                                                
-    }""")
+    query_plan.explain(loop=True)
+    # test = json.loads(""" {                                           
+    #    "Node Type": "SetOp",                             
+    #    "Strategy": "Sorted",                             
+    #    "Parallel Aware": false,                          
+    #    "Command": "Except",                              
+    #    "Startup Cost": 659139.58,                        
+    #    "Total Cost": 668626.83,                          
+    #    "Plan Rows": 574989,                              
+    #    "Plan Width": 222,                                
+    #    "Plans": [                                        
+    #     {                                               
+    #        "Node Type": "Some Node Type"     
+    #     }
+    #     ]
+    # }""")
 
-    query_plan.exec_plan(test)
+    # query_plan.exec_plan(test)
     # Marking end of program.
     logging.info("Finish logging.")
 

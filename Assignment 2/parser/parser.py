@@ -1,4 +1,4 @@
-from . import sequentialScan, limit, general_parser, materialize, mergeJoin, nestedLoopJoin
+from . import sequentialScan, limit, general_parser, materialize, mergeJoin, nestedLoopJoin, setOperation, duplicateElimination
 
 
 def parse_plan(plan, start=False):
@@ -8,7 +8,9 @@ def parse_plan(plan, start=False):
         "Limit": limit.limit,
         "Materialize": materialize.materialize,
         "Merge Join": mergeJoin.merge_join,
-        "Nested Loop": nestedLoopJoin.nested_loop_join
+        "Nested Loop": nestedLoopJoin.nested_loop_join,
+        "SetOp": setOperation.set_operation,
+        "Unique": duplicateElimination.duplicate_elimination
     }
 
     node = plan["Node Type"]
