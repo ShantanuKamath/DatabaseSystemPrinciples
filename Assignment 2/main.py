@@ -4,7 +4,6 @@ Main script to start application.
 
 from os import system
 from queryPlan import QueryPlan
-
 import logging
 import json
 
