@@ -1,10 +1,11 @@
-from parser import sequentialScan
+from parser import sequentialScan, limit
 
 
 def parse_plan(plan, start=False):
 
     PARSER_MAP = {
         "Seq Scan": sequentialScan.sequential_scan,
+        "Limit": limit.limit
     }
 
     node = plan["Node Type"]

@@ -44,9 +44,9 @@ class QueryPlan:
         logging.info("Executing: " + self.query)
         self.cursor.execute("EXPLAIN (FORMAT JSON) " + self.query)
         plan = self.cursor.fetchall()
-        print(plan)
         # convert plan to natural language
         converted_plan = parser.parse_plan(plan[0][0][0]["Plan"], True)
+        print(converted_plan)
         logging.info("Plan: " + json.dumps(plan[0][0][0]["Plan"]))
         logging.info("Converted to: " + converted_plan)
         # Speak plan
