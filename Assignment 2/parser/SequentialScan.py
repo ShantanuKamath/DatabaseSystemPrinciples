@@ -1,9 +1,8 @@
 import json
-from utils import get_conjuction
-
+from parser import utils
 
 def sequential_scan(plan, start=False):
-    text = get_conjuction(start)
+    text = utils.get_conjuction(start)
     text += "a sequential scan is performed on the relation "
     if "Relation Name" in plan:
         text += plan['Relation Name']
