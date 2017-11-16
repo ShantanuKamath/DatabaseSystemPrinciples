@@ -31,27 +31,25 @@ def main():
 
     db_config = config["db"]
 
-    query_plan = QueryPlan(db_config["host"], db_config["database"], db_config["username"],
-                           db_config["password"])
+    query_plan = QueryPlan(
+        db_config["host"],
+        db_config["database"],
+        db_config["username"],
+        db_config["password"])
 
-    query_plan.explain(loop=True)
-    # test = json.loads(""" {                                           
-    #    "Node Type": "SetOp",                             
-    #    "Strategy": "Sorted",                             
-    #    "Parallel Aware": false,                          
-    #    "Command": "Except",                              
-    #    "Startup Cost": 659139.58,                        
-    #    "Total Cost": 668626.83,                          
-    #    "Plan Rows": 574989,                              
-    #    "Plan Width": 222,                                
-    #    "Plans": [                                        
-    #     {                                               
-    #        "Node Type": "Some Node Type"     
-    #     }
-    #     ]
-    # }""")
+    # query_plan.explain(loop=True)
+    test = json.loads(""" {
+        "Node Type": "Values Scan",
+        "Parallel Aware": false,
+        "Alias": "*VALUES*",
+        "Startup Cost": 0.00,
+        "Total Cost": 0.04,
+        "Plan Rows": 3,
+        "Plan Width": 36
+     }
+""")
 
-    # query_plan.exec_plan(test)
+    query_plan.exec_plan(test)
     # Marking end of program.
     logging.info("Finish logging.")
 

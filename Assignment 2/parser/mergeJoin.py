@@ -9,7 +9,7 @@ def merge_join(plan, start=False):
             text += parser.parse_plan(successor, start) + " "
             if start:
                 start = False
-    text += utils.get_conjuction(start)
+    text += utils.get_conjunction(start)
     text += "merge join is employed to merge the preceeding result"
     if 'Merge Cond' in plan:
         text += " with the following condition: " + \

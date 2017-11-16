@@ -8,7 +8,7 @@ def get_conjunction(is_start=False):
         " Next, ",
         " And then, ",
         " After that, ",
-        " In addition to,"]
+        " Additionally,"]
 
     if is_start:
         return "Initially, "
@@ -17,7 +17,7 @@ def get_conjunction(is_start=False):
 
 
 def init_plan(plan, start=False):
-    result = str(plan["Subplan Name"])
+    result = str(plan.get("SubPlan Name", ""))
     if "Parent Relationship" in plan:
         if plan["Parent Relationship"] == "InitPlan":
             result = get_conjunction(start)

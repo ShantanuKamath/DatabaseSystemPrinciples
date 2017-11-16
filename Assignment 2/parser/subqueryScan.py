@@ -1,5 +1,6 @@
-import json
-import parser
+from . import parser
+from . import utils
+
 
 def subquery_scan(plan, start=False):
     sentence = ''
@@ -10,21 +11,22 @@ def subquery_scan(plan, start=False):
             if start:
                 start = False
 
-    sentence += parser.get_conjuction(start)
+    sentence += utils.get_conjunction(start)
     sentence += 'A subquery scan is performed on the result from the previous operation.'
     return sentence
 
+
 if __name__ == "__main__":
     test = '''
-    {                                                   
-        "Node Type": "Subquery Scan",                                     
-        "Parent Relationship": "Outer",                                   
-        "Parallel Aware": false,                                          
-        "Alias": "tmp_a",                                                 
-        "Startup Cost": 48103.23,                                         
-        "Total Cost": 48113.40,                                           
-        "Plan Rows": 170,                                                 
-        "Plan Width": 15,                                                 
+    {
+        "Node Type": "Subquery Scan",
+        "Parent Relationship": "Outer",
+        "Parallel Aware": false,
+        "Alias": "tmp_a",
+        "Startup Cost": 48103.23,
+        "Total Cost": 48113.40,
+        "Plan Rows": 170,
+        "Plan Width": 15,
         "Filter": "(NOT (hashed SubPlan 1))",
         "Plans":[
             {
