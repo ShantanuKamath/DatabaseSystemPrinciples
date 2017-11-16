@@ -6,6 +6,6 @@
 		"password":""
 	},
 	"logging":{
-		"log_path": "logs/debug.log"
+		"path": "logs/debug.log"
 	}
 }
