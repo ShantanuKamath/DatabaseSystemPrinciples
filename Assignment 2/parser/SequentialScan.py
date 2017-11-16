@@ -1,4 +1,4 @@
-from parser import utils
+from . import utils
 
 
 def sequential_scan(plan, start=False):

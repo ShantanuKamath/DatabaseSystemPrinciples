@@ -1,5 +1,5 @@
 import json
-from parser import utils 
+import utils 
 
 def limit(plan, start=False):
     text = utils.get_conjuction(start)
