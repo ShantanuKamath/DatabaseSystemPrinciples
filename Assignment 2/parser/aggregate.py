@@ -1,4 +1,3 @@
-import json
 from . import parser
 from . import utils
 
@@ -37,65 +36,3 @@ def aggregate(plan, start=False):
             plan["Plans"][0],
             start) + " " + utils.get_conjunction()
         return parsed_plan
-
-
-if __name__ == "__main__":
-    PLAN = '''
-    {
-       "Node Type": "Aggregate",
-       "Strategy": "Sorted",
-       "Partial Mode": "Simple",
-       "Parent Relationship": "InitPlan",
-       "Parallel Aware": false,
-       "Startup Cost": 513461.61,
-       "Total Cost": 519210.47,
-       "Plan Rows": 220200,
-       "Plan Width": 15,
-       "Group Key": ["a.author", "something else"],
-       "Filter": "(count(a.author) > 20)",
-       "Plans": [
-            {
-            "Node Type": "Seq Scan",
-            "Parent Relationship": "Outer",
-            "Parallel Aware": false,
-            "Relation Name": "publication",
-            "Alias": "a",
-            "Startup Cost": 0.00,
-            "Total Cost": 102857.50,
-            "Plan Rows": 164431,
-            "Plan Width": 23,
-            "Filter": "(year = 2017)"
-            }
-        ]
-    }
-    '''
-    JSON_PLAN = json.loads(PLAN)
-    print(aggregate(JSON_PLAN, start=True))
-
-    test = '''
-    {
-       "Node Type": "Aggregate",
-       "Strategy": "Hashed",
-       "Partial Mode": "Simple",
-       "Parallel Aware": false,
-       "Startup Cost": 40297.34,
-       "Total Cost": 40494.72,
-       "Plan Rows": 19738,
-       "Plan Width": 23,
-       "Group Key": ["b.author"],
-       "Plans": [
-        {
-           "Node Type": "Unrecognize",
-           "Parent Relationship": "Outer",
-           "Parallel Aware": false,
-           "Join Type": "Inner",
-           "Startup Cost": 16963.82,
-           "Total Cost": 40198.65,
-           "Plan Rows": 19738,
-           "Plan Width": 15
-        }
-        ]
-    }
-    '''
-    test_plan = json.loads(test)
-    print(aggregate(test_plan))

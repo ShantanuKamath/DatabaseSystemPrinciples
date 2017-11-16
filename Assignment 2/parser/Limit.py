@@ -1,7 +1,5 @@
-# from .parser import parse_plan
 from . import parser
 from .utils import get_conjunction
-# from . import utils
 
 
 def limit(plan, start=False):

@@ -12,35 +12,3 @@ def group(plan, start=False):
         plurality)
     parsed_plan += group_keys + "."
     return parsed_plan
-
-
-if __name__ == "__main__":
-    test = '''
-    {
-        "Node Type": "Group",
-        "Parent Relationship": "Outer",
-        "Parallel Aware": false,
-        "Startup Cost": 0.42,
-        "Total Cost": 60853.79,
-        "Plan Rows": 574989,
-        "Plan Width": 106,
-        "Group Key": ["pub_key", "year"],
-        "Plans": [
-        {
-            "Node Type": "Index Scan",
-            "Parent Relationship": "Outer",
-            "Parallel Aware": false,
-            "Scan Direction": "Forward",
-            "Index Name": "publication_pkey",
-            "Relation Name": "publication",
-            "Alias": "publication",
-            "Startup Cost": 0.42,
-            "Total Cost": 59416.31,
-            "Plan Rows": 574989,
-               "Plan Width": 106
-        }
-        ]
-    }
-    '''
-    test_plan = json.loads(test)
-    print(group(test_plan, start=True))

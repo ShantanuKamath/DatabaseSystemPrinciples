@@ -20,21 +20,3 @@ def cte_scan(plan, start=False):
                 plan["Filter"].replace('::text', '') + "."
 
     return sentence
-
-
-if __name__ == "__main__":
-    test = '''
-   {
-       "Node Type": "CTE Scan",
-        "Parent Relationship": "Outer",
-        "Parallel Aware": false,
-        "CTE Name": "x",
-        "Alias": "x",
-        "Startup Cost": 0.00,
-        "Total Cost": 11651.98,
-        "Plan Rows": 582599,
-        "Plan Width": 218
-     }
-    '''
-    test_plan = json.loads(test)
-    print(cte_scan(test_plan, start=True))

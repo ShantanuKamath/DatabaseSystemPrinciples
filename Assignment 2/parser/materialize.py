@@ -14,33 +14,3 @@ def materialize(plan, start=False):
         text += utils.get_conjunction(start)
         text += "holding the results in memory enables efficient accessing. "
     return text
-
-
-if __name__ == "__main__":
-    test = '''
-    {
-        "Node Type": "Materialize",
-        "Parent Relationship": "Inner",
-        "Parallel Aware": false,
-        "Startup Cost": 19215.45,
-        "Total Cost": 19223.67,
-        "Plan Rows": 274,
-        "Plan Width": 15,
-        "Plans": [
-            {
-                "Node Type": "Unrecognize",
-                "Strategy": "Sorted",
-                "Partial Mode": "Simple",
-                "Parent Relationship": "Outer",
-                "Parallel Aware": false,
-                "Startup Cost": 19215.45,
-                "Total Cost": 19220.25,
-                "Plan Rows": 274,
-                "Plan Width": 23,
-                "Group Key": ["a_1.author"],
-                "Filter": "(count(a_1.author) >= 10)"
-            }
-        ]
-    }
-    '''
-    print(materialize(test_plan, start=True))

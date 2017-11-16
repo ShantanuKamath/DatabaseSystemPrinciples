@@ -1,4 +1,3 @@
-import json
 from . import parser
 from . import utils
 
@@ -29,41 +28,3 @@ def index_scan(plan, start=False):
             sentence += " The result is then filtered by {}.".format(
                 plan["Filter"].replace('::text', ''))
     return sentence
-
-
-if __name__ == "__main__":
-    test = '''
-    {
-       "Node Type": "Index Scan",
-       "Parallel Aware": false,
-       "Scan Direction": "Forward",
-       "Index Name": "publication_pkey",
-       "Relation Name": "publication",
-       "Alias": "publication",
-       "Startup Cost": 0.42,
-       "Total Cost": 8.44,
-       "Plan Rows": 1,
-       "Plan Width": 100,
-       "Index Cond": "((pub_key)::text = 'Saxena96'::text)"
-    }
-    '''
-    test_plan = json.loads(test)
-    print(index_scan(test_plan, start=True))
-
-    test = '''
-    {
-       "Node Type": "Index Only Scan",
-       "Parallel Aware": false,
-       "Scan Direction": "Forward",
-       "Index Name": "publication_pkey",
-       "Relation Name": "publication",
-       "Alias": "publication",
-       "Startup Cost": 0.42,
-       "Total Cost": 8.44,
-       "Plan Rows": 1,
-       "Plan Width": 21,
-       "Index Cond": "(pub_key = 'journals/acta/Saxena96'::text)"
-    }
-    '''
-    test_plan = json.loads(test)
-    print(index_scan(test_plan, start=True))
