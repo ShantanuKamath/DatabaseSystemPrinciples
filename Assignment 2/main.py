@@ -37,23 +37,23 @@ def main():
         db_config["username"],
         db_config["password"])
 
-    # query_plan.explain(loop=True)
+    query_plan.explain(loop=True)
 
-#     test = json.loads(""" {
-#         "Node Type": "Values Scan",
-#         "Parallel Aware": false,
-#         "Alias": "*VALUES*",
-#         "Startup Cost": 0.00,
-#         "Total Cost": 0.04,
-#         "Plan Rows": 3,
-#         "Plan Width": 36
-#      }
-# """)
+    # test = json.loads(""" {
+    #         "Node Type": "Values Scan",
+    #         "Parallel Aware": false,
+    #         "Alias": "*VALUES*",
+    #         "Startup Cost": 0.00,
+    #         "Total Cost": 0.04,
+    #         "Plan Rows": 3,
+    #         "Plan Width": 36
+    #      }
+    # """)
 
-#     query_plan.exec_plan(test)
+    # query_plan.exec_plan(test)
 
-    for query in test_query_main():
-        query_plan.execute(query)
+    # for query in test_query_main():
+    #     query_plan.execute(query)
 
     # Marking end of program.
     logging.info("Finish logging.")

@@ -50,6 +50,9 @@ class QueryPlan:
         plan = self.cursor.fetchall()
         # convert plan to natural language
         converted_plan = parser.parse_plan(plan[0][0][0]["Plan"], True)
+        converted_plan = converted_plan.replace("(", "")
+        converted_plan = converted_plan.replace(")", "")
+        converted_plan = converted_plan.replace("'", "")
         print(converted_plan)
         logging.info("Plan: " + json.dumps(plan[0][0][0]["Plan"]))
         logging.info("Converted to: " + converted_plan)
