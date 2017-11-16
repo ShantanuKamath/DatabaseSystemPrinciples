@@ -1,0 +1,11 @@
+{
+	"db":{
+		"host":"localhost", 
+		"database":"db4031",
+		"username":"shantanukamath",
+		"password":""
+	},
+	"logging":{
+		"log_path": "logs/debug.log"
+	}
+}
